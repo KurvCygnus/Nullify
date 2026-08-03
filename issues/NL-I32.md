@@ -10,7 +10,7 @@ Two **UX-level** navigation regressions found during the final bug review (post-
 
 ## NL-I32.1: Generic-method `var` — Right-Edge Navigation Gap on Method Type Parameters
 
-* Pending(1)
+* Resolved(`0.9.8`)
 
 * Found on version `0.9.7` by `Kurv Cygnus`
 
@@ -23,11 +23,15 @@ In a generic method, a `var` declared with a nullability annotation whose inferr
 
 A delimiter or whitespace immediately following a type argument maps to a token that returns no targets and is never delegated back to the type argument — the NL-I16.5-style gap persists on the type-argument side.
 
+### Solution Result
+
+The click-zone gap to the right of type arguments is closed: positioning the caret on a delimiter or whitespace that immediately follows a type argument now navigates to that type argument's declaration — `E,` and `V>` behave exactly like `E` and `V`.
+
 ---
 
 ## NL-I32.2: No-Target Navigation Silently Fails and Unfolds
 
-* Pending(2)
+* Resolved(`0.9.9`)
 
 * Found on version `0.9.7` by `Kurv Cygnus`
 
@@ -44,3 +48,7 @@ Desired behavior: **cancel the unfold** and let IntelliJ show its native "cannot
 ### Root Cause
 
 An empty target list is reported as the standard "decline" signal, so the platform runs its default goto-declaration on the underlying source — which, on a collapsed fold region, expands the fold. No feedback tells the user that Nullify recognized the placeholder but could not resolve a target.
+
+### Solution Result
+
+No-target navigation is no longer a silent failure that unfolds the fold: the Ctrl/Cmd+click release is consumed before the platform expands the fold, so the fold stays collapsed with **no visible fold/unfold flicker**, and IntelliJ shows its native "cannot find declaration to go to" guidance when nothing can be resolved.

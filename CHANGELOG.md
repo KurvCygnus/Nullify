@@ -11,6 +11,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Automated public tracking-document publishing**: The public tracking repository is now validated, generated, and published automatically on every push to `main` (requires the `PUBLIC_TRACKING_REPO` repository variable and `PUBLIC_TRACKING_TOKEN` secret to be configured).
 
+## [0.9.10] - 2026-08-03
+
+### Fixed
+
+- **Annotation picker icons follow your IDE's icon theme (NL-I33)**: The annotation completion popup now renders each candidate with the icon the IDE resolves for that annotation class, so icon plugins that restyle annotation glyphs are honored everywhere instead of only in the project/structure views. The stock annotation icon is kept as the fallback when an annotation cannot be resolved.
+
+## [0.9.9] - 2026-08-03
+
+### Fixed
+
+- **Ctrl+clicking a folded placeholder with no target no longer unfolds the fold (NL-I32.2)**: When a folded placeholder position has nothing to navigate to (whitespace, synthetic `Array`/`Vararg` tokens), Ctrl+click (or Ctrl+B/F12) keeps the fold collapsed instead of silently expanding it, and IntelliJ shows its native "cannot find declaration to go to" guidance when nothing can be resolved.
+
+## [0.9.8] - 2026-08-03
+
+### Fixed
+
+- **Type-argument boundary navigation on folded types (NL-I32.1)**: Ctrl+clicking just to the right of a type argument inside a folded type — on the `,` after `E` or the closing `>` after `V` in e.g. `EnumMap!<E, V>` — now navigates to that type argument's declaration instead of doing nothing.
+
 ## [0.9.7] - 2026-08-02
 
 ### Fixed

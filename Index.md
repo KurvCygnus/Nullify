@@ -26,9 +26,7 @@
 
 ### Pending
 
-- [NL-I32.1](issues/NL-I32.md#nl-i321-generic-method-var--right-edge-navigation-gap-on-method-type-parameters) — Generic-method `var` — Right-Edge Navigation Gap on Method Type Parameters
-- [NL-I32.2](issues/NL-I32.md#nl-i322-no-target-navigation-silently-fails-and-unfolds) — No-Target Navigation Silently Fails and Unfolds
-- [NL-I33](issues/NL-I33.md) — Annotation Picker Hardcodes `AllIcons.Nodes.Annotationtype` — Custom Icon Plugins Ignored
+- [NL-I34](issues/NL-I34.md) — Keyboard (F12/Ctrl+B) Navigation Can't Reach Interior Placeholder Tokens on Collapsed Folds
 
 ### Resolved
 
@@ -71,6 +69,9 @@
 - [NL-I30](issues/NL-I30.md) — `ClassCastException` in `determineScope` on Mid-Typing Type-Use Annotations
 - [NL-I31.1](issues/NL-I31.md#nl-i311-notnull-var-folds-to-mapsetstring-pairinteger-double-despite-nullify-style-configuration) — `@NotNull var` folds to `Map<Set<String>, Pair<Integer, Double>>!` despite nullify-style configuration
 - [NL-I31.2](issues/NL-I31.md#nl-i312-navigation-on-folded-var-placeholder-is-broken) — Navigation on folded `var` placeholder is broken
+- [NL-I32.1](issues/NL-I32.md#nl-i321-generic-method-var--right-edge-navigation-gap-on-method-type-parameters) — Generic-method `var` — Right-Edge Navigation Gap on Method Type Parameters
+- [NL-I32.2](issues/NL-I32.md#nl-i322-no-target-navigation-silently-fails-and-unfolds) — No-Target Navigation Silently Fails and Unfolds
+- [NL-I33](issues/NL-I33.md) — Annotation Picker Hardcodes `AllIcons.Nodes.Annotationtype` — Custom Icon Plugins Ignored
 
 ---
 

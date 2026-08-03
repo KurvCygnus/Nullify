@@ -1,6 +1,6 @@
 # NL-I33: Annotation Picker Hardcodes `AllIcons.Nodes.Annotationtype` — Custom Icon Plugins Ignored
 
-* Pending(3)
+* Resolved(`0.9.10`)
 
 * Found on version `0.9.7` by `Kurv Cygnus`
 
@@ -12,3 +12,7 @@ The annotation picker's completion popup renders every candidate with a hardcode
 ## Root Cause
 
 The picker bypassed the platform's PSI-based icon resolution and returned a hardcoded icon, and the candidate model dropped the resolved annotation class it could have asked for an icon.
+
+## Solution Result
+
+The annotation picker's icons now follow the IDE's icon theme. Each candidate is rendered with the icon the platform resolves for its annotation class, so custom icon plugins that restyle annotation glyphs are honored in the completion popup — exactly like the project view and standard code completion. The stock annotation icon remains as a fallback when an annotation cannot be resolved (e.g. during indexing or without a JDK).
