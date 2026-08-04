@@ -26,7 +26,7 @@
 
 ### Pending
 
-- [NL-I34](issues/NL-I34.md) — Keyboard (F12/Ctrl+B) Navigation Can't Reach Interior Placeholder Tokens on Collapsed Folds
+*None*
 
 ### Resolved
 
@@ -72,6 +72,7 @@
 - [NL-I32.1](issues/NL-I32.md#nl-i321-generic-method-var--right-edge-navigation-gap-on-method-type-parameters) — Generic-method `var` — Right-Edge Navigation Gap on Method Type Parameters
 - [NL-I32.2](issues/NL-I32.md#nl-i322-no-target-navigation-silently-fails-and-unfolds) — No-Target Navigation Silently Fails and Unfolds
 - [NL-I33](issues/NL-I33.md) — Annotation Picker Hardcodes `AllIcons.Nodes.Annotationtype` — Custom Icon Plugins Ignored
+- [NL-I34](issues/NL-I34.md) — Keyboard (F12/Ctrl+B) Navigation Can't Reach Interior Placeholder Tokens on Collapsed Folds
 
 ---
 
