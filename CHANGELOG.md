@@ -11,6 +11,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Automated public tracking-document publishing**: The public tracking repository is now validated, generated, and published automatically on every push to `main` (requires the `PUBLIC_TRACKING_REPO` repository variable and `PUBLIC_TRACKING_TOKEN` secret to be configured).
 
+## [1.0.0] - 2026-08-06
+
+### Added
+
+- **Fold navigation jumps to the exact declaration (NL-F12)**: Clicking any part of a folded placeholder now navigates to the declaration the IDE would have shown before folding. Type names jump to their classes, nullability markers to their annotations, and wildcard-only folds such as `List<out Foo>` navigate to the bound type.
+
+### Fixed
+
+- **Annotation arguments navigate to their element methods (NL-I35)**: Clicking an argument inside a preserved annotation — e.g. `name` or `value` in `@MyAnno(name = "foo", value = "bar") String!` — now jumps to the annotation's element method (`MyAnno#name()` / `MyAnno#value()`) instead of the field's type.
+- **Clicking structural parts keeps the fold collapsed**: Clicking synthetic parts of a folded placeholder (whitespace, delimiters, `Array`/`Vararg` markers) keeps the fold collapsed, and IntelliJ shows its native "cannot find declaration to go to" guidance instead of navigating to a wrong declaration.
+
 ## [0.9.10] - 2026-08-03
 
 ### Fixed

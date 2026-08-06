@@ -73,6 +73,7 @@
 - [NL-I32.2](issues/NL-I32.md#nl-i322-no-target-navigation-silently-fails-and-unfolds) — No-Target Navigation Silently Fails and Unfolds
 - [NL-I33](issues/NL-I33.md) — Annotation Picker Hardcodes `AllIcons.Nodes.Annotationtype` — Custom Icon Plugins Ignored
 - [NL-I34](issues/NL-I34.md) — Keyboard (F12/Ctrl+B) Navigation Can't Reach Interior Placeholder Tokens on Collapsed Folds
+- [NL-I35](issues/NL-I35.md) — Navigation on Folded Annotation Arguments Jumps to the Type Instead of the Annotation's Element Methods
 
 ---
 
@@ -80,7 +81,7 @@
 
 ### Open
 
-*None*
+- [NL-F13](features/NL-F13.md) — Domain-Specific Annotation Value Navigation — Spring `@Value` → Config Key
 
 ### Ditched
 
@@ -109,3 +110,4 @@
 - [NL-F8](features/NL-F8.md) — Class-Level & Package-Level Nullability Default Annotation Support
 - [NL-F9](features/NL-F9.md) — Smart Annotation FQCN Selection
 - [NL-F10](features/NL-F10.md) — Project-Level Default Nullability Annotation Configuration + Smart Quick Fix
+- [NL-F12](features/NL-F12.md) — PSI-Anchored Fold Navigation — Replace Placeholder Text Re-Parsing with Fold-Time Segment Mapping
