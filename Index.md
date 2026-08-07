@@ -81,7 +81,7 @@
 
 ### Open
 
-- [NL-F13](features/NL-F13.md) — Domain-Specific Annotation Value Navigation — Spring `@Value` → Config Key
+*None*
 
 ### Ditched
 
@@ -111,3 +111,4 @@
 - [NL-F9](features/NL-F9.md) — Smart Annotation FQCN Selection
 - [NL-F10](features/NL-F10.md) — Project-Level Default Nullability Annotation Configuration + Smart Quick Fix
 - [NL-F12](features/NL-F12.md) — PSI-Anchored Fold Navigation — Replace Placeholder Text Re-Parsing with Fold-Time Segment Mapping
+- [NL-F13](features/NL-F13.md) — Generic Annotation Value Navigation — Folded Literals Delegate to the Platform

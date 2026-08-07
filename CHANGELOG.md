@@ -7,15 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-
-- **Automated public tracking-document publishing**: The public tracking repository is now validated, generated, and published automatically on every push to `main` (requires the `PUBLIC_TRACKING_REPO` repository variable and `PUBLIC_TRACKING_TOKEN` secret to be configured).
-
 ## [1.0.0] - 2026-08-06
 
 ### Added
 
 - **Fold navigation jumps to the exact declaration (NL-F12)**: Clicking any part of a folded placeholder now navigates to the declaration the IDE would have shown before folding. Type names jump to their classes, nullability markers to their annotations, and wildcard-only folds such as `List<out Foo>` navigate to the bound type.
+- **Annotation value literals navigate to whatever the IDE resolves (NL-F13)**: Clicking a literal inside a preserved annotation in a folded placeholder — e.g. Spring's `@Value("${app.name}")` — now jumps to the same target the IDE would resolve in unfolded code (config key, bean, profile, …), including config keys defined in several files (e.g. Quarkus Standard/Dev/Test profiles), where the IDE offers a target chooser — thanks to the IDE's own navigation machinery rather than framework-specific support.
 
 ### Fixed
 
