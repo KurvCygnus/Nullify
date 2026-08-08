@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Nullify folds collapse automatically after project analysis completes (NL-F14)**: Once the project finishes its analysis (indexing), the Nullify fold regions in the editor tab you are currently using are collapsed automatically, so the compact `String?`/`Foo!` syntax is shown without manual folding. Background tabs and non-Nullify folds (method bodies, imports) are left untouched. Can be turned off under `Settings → Editor → Nullify → Folding Behavior`.
 - **Fold navigation jumps to the exact declaration (NL-F12)**: Clicking any part of a folded placeholder now navigates to the declaration the IDE would have shown before folding. Type names jump to their classes, nullability markers to their annotations, and wildcard-only folds such as `List<out Foo>` navigate to the bound type.
 - **Annotation value literals navigate to whatever the IDE resolves (NL-F13)**: Clicking a literal inside a preserved annotation in a folded placeholder — e.g. Spring's `@Value("${app.name}")` — now jumps to the same target the IDE would resolve in unfolded code (config key, bean, profile, …), including config keys defined in several files (e.g. Quarkus Standard/Dev/Test profiles), where the IDE offers a target chooser — thanks to the IDE's own navigation machinery rather than framework-specific support.
 

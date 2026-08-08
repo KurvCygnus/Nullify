@@ -112,3 +112,4 @@
 - [NL-F10](features/NL-F10.md) — Project-Level Default Nullability Annotation Configuration + Smart Quick Fix
 - [NL-F12](features/NL-F12.md) — PSI-Anchored Fold Navigation — Replace Placeholder Text Re-Parsing with Fold-Time Segment Mapping
 - [NL-F13](features/NL-F13.md) — Generic Annotation Value Navigation — Folded Literals Delegate to the Platform
+- [NL-F14](features/NL-F14.md) — Auto-Collapse Nullify Folds After Project Analysis Completes
