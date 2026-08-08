@@ -1,31 +1,36 @@
 # Nullify
 
-> Nullify is a plugin that makes your Java codebase as readable as its Kotlin sibling, without changing a single byte of your source.
-
-![Nullify: all annotated stiff get folded automatically, once the project analysis is done](docs/assets/uwu.gif)
+> Read your Java code the way it was meant to be read.\
+> Nullify folds noisy annotations and wildcards into clean `?`/`!`/`out`/`in` syntax — without changing a single line of your source.
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ%20IDEA-2025.3.4%2B-purple)
 
 ---
 
+## Table of Contents
+
+- [See it in action](#see-it-in-action)
+- [Why Nullify?](#why-nullify)
+- [Features](#features)
+- [What gets folded](#what-gets-folded)
+- [Installation](#installation)
+- [Compatibility](#compatibility)
+- [Feedback & Roadmap](#feedback--roadmap)
+
+---
+
 ## See it in action
 
-<!--
-  GIF: docs/assets/hero-fold.gif
-  Record: type `@Nullable Foo` in an editor and watch it fold to `Foo?` in real
-  time; then hover / Ctrl+click the placeholder to show it still navigates to the
-  declaration. Dark theme recommended for contrast.
--->
-![Nullify folding `@Nullable Foo` into `Foo?`](docs/assets/hero-fold.gif)
+![Nullify: all annotated stuff gets folded automatically, once the project analysis is done](docs/assets/startup_fold.gif)
 
-No more wading through walls of `@NotNull` and `@Nullable`. Nullify collapses the noise into the compact, universally-understood `!` and `?` — the exact syntax Kotlin developers already know.
+Type `@Nullable Foo`, and it folds to `Foo?` right before your eyes. Hover or Ctrl+click the folded text, and it still jumps to the declaration. It's just a view — your source never changes.
 
 ---
 
 ## Why Nullify?
 
-Java's annotation ecosystem is powerful but *loud*. A single field can carry:
+Java's annotations are powerful, but they come with a lot of noise. A single field can pile on a wall of text:
 
 ```java
 @NotNull
@@ -40,29 +45,24 @@ With Nullify, that reads as:
 private final Map!<String!, List?<Token!>> cache;
 ```
 
-Your code **behaves** exactly the same — only the ceremony is gone. Folding is a view, not a transformation: the underlying source never changes, and your team's tools, diffs, and CI are untouched.
+Same code. Same behavior. Only the noise is gone.
 
-### What gets folded
+**Folding is a view, not a rewrite** — the source file stays exactly as you wrote it, so your diffs, CI, and teammates' tools all see the same Java as always.
 
-| Java you write                | What Nullify shows |
-|-------------------------------|--------------------|
-| `@Nullable Foo`               | `Foo?`             |
-| `@NotNull Bar`                | `Bar!`             |
-| `@Nullable Foo<@NotNull Bar>` | `Foo?<Bar!>`       |
-| `? extends Foo`               | `out Foo`          |
-| `? super Bar`                 | `in Bar`           |
-| `@NotNull String[]`           | `Array<String!>`   |
-| `Object @Nullable ...`        | `Vararg?<Object>`  |
-| `@Nullable Foo @NotNull []`   | `Array!<Foo?>`     |
-| `? extends @Nullable Foo`     | `out Foo?`         |
+Why you'll love it:
 
-*Intersection type is also supported.*
+- **Reads like Kotlin.** `?` and `!`, `out` and `in`, clean array syntax — the compact style you already know, applied to your Java.
+- **One style for the whole type system.** Nullity markers, wildcards, arrays & varargs, `var` inference, qualified types, intersection casts — all fold into one consistent, familiar look.
+- **Finds annotations wherever Java hides them.** On the type, on the declaration, on the class, on the whole package — no matter which of the four spots a nullability annotation lives in, Nullify resolves it correctly.
+- **Nothing breaks.** Navigation, completion, and other plugins keep working on folded code. Folded placeholders even keep non-nullity annotations like `@Value("${app.name}")` and can still jump to what they point at.
+- **Catches annotation chaos.** A built-in inspection flags duplicated and mixed-library nullability annotations, with one-click fixes.
+- **Your editor, your rules.** Turn each kind of folding on or off, register your own annotations, and choose the style that fits your team.
 
 ---
 
 ## Features
 
-### 1. Nullity folding — `?` and `!`
+### 1. Nullity at a glance — `Foo?` / `Bar!`
 
 <!--
   GIF: docs/assets/fold-nullity.gif
@@ -71,9 +71,9 @@ Your code **behaves** exactly the same — only the ceremony is gone. Folding is
 -->
 ![Nullity marker folding](docs/assets/fold-nullity.gif)
 
-`@Nullable Foo` → `Foo?`, `@NotNull Bar` → `Bar!`. Nullify resolves annotations wherever Java puts them — type-use, declaration-site, class defaults, package defaults — and decides each position with a precise 4-level fallback (type-use → declaration → class → package).
+`@Nullable Foo` → `Foo?`, `@NotNull Bar` → `Bar!`. Nullify understands annotations wherever Java puts them — on the type, the declaration, the class, or the whole package — and gets every position right.
 
-### 2. Wildcard folding — `out` and `in`
+### 2. Variance that reads itself — `out` / `in`
 
 <!--
   GIF: docs/assets/fold-wildcards.gif
@@ -82,9 +82,9 @@ Your code **behaves** exactly the same — only the ceremony is gone. Folding is
 -->
 ![Wildcard variance folding](docs/assets/fold-wildcards.gif)
 
-`? extends Foo` → `out Foo`, `? super Bar` → `in Bar` — matching Kotlin's `out`/`in` variance projection so familiar generic signatures finally read the way they *mean*.
+`? extends Foo` → `out Foo`, `? super Bar` → `in Bar` — the same variance words Kotlin uses, so generic signatures finally read the way they *mean*.
 
-### 3. Arrays & varargs — normalized, not mangled
+### 3. Arrays & varargs, normalized — `Array!<String?>` / `Vararg?<Object>`
 
 <!--
   GIF: docs/assets/fold-arrays.gif
@@ -93,9 +93,9 @@ Your code **behaves** exactly the same — only the ceremony is gone. Folding is
 -->
 ![Array and vararg folding](docs/assets/fold-arrays.gif)
 
-Arrays and varargs fold to clean generic syntax: `Array<String!>`, `Vararg?<Object>`. Per-dimension annotations are placed precisely per the JLS ordering — nothing is flattened or misattributed.
+Arrays and varargs fold into clean generic syntax — `Array<String!>`, `Vararg?<Object>` — with every dimension's annotation placed exactly where it belongs. Nothing is flattened, nothing is misattributed.
 
-### 4. Navigation still works — everywhere
+### 4. Navigation never breaks
 
 <!--
   GIF: docs/assets/navigation.gif
@@ -105,9 +105,9 @@ Arrays and varargs fold to clean generic syntax: `Array<String!>`, `Vararg?<Obje
 -->
 ![Folded placeholder navigation](docs/assets/navigation.gif)
 
-Folding should never cost you navigation. Ctrl+click any part of a folded placeholder — the type, a type argument, the `?`/`!` marker, even a preserved annotation's value literal — and you land on exactly what the IDE would have resolved before folding. Even `@Value("${app.name}")` literals inside folds delegate to the platform's own framework-aware navigation.
+Folding should never cost you navigation. Ctrl+click any part of a folded placeholder — the type, a type argument, the `?`/`!` marker, even a preserved annotation's value literal — and you land exactly where the IDE would have taken you before folding.
 
-### 5. Smarter inspections
+### 5. Catch annotation chaos
 
 <!--
   GIF: docs/assets/inspection.gif
@@ -117,9 +117,9 @@ Folding should never cost you navigation. Ctrl+click any part of a folded placeh
 -->
 ![Inconsistent nullability inspection](docs/assets/inspection.gif)
 
-Nullify ships the **Inconsistent Nullability Annotation** inspection: it detects duplicated or mixed-namespace nullability annotations (`@javax.Nonnull` vs `@org.jetbrains.annotations.NotNull`, `@NotNullByDefault` vs `@ParametersAreNonnullByDefault`, …) and offers one-click quick fixes — remove the duplicate, or align with the file's / project's canonical annotation.
+Nullify ships the **Inconsistent Nullability Annotation** inspection: it spots duplicated or mixed-library nullability annotations (`@javax.Nonnull` vs `@org.jetbrains.annotations.NotNull`, `@NotNullByDefault` vs `@ParametersAreNonnullByDefault`, …) and offers one-click quick fixes — remove the duplicate, or align it with the file's / project's standard annotation.
 
-### 6. Fully configurable
+### 6. Your rules, your defaults
 
 <!--
   GIF: docs/assets/settings.gif
@@ -131,10 +131,47 @@ Nullify ships the **Inconsistent Nullability Annotation** inspection: it detects
 Under **Settings → Editor → Nullify** you control everything:
 
 - Toggle nullity and wildcard folding independently, and pick Kotlin-style marker placement.
-- Register your own `@Nullable` / `@NotNull` annotation FQCNs — Nullify understands them just like the built-ins.
+- Register your own `@Nullable` / `@NotNull` annotations — Nullify understands them just like the built-ins.
 - Configure class/package/project-level nullability defaults (`@NotNullByDefault`, `@ParametersAreNonnullByDefault`, …).
 - Built-in support for the popular libraries: JetBrains, JSpecify, Spring, AndroidX, Eclipse JDT, Checker Framework, FindBugs/SpotBugs, and more.
-- Completion-enabled FQCN inputs and an interface that follows your IDE's language.
+- FQCN inputs with code completion, and an interface that speaks your IDE's language.
+
+---
+
+## What gets folded
+
+A quick tour of the folding you'll see every day — including the less obvious spots:
+
+| Java you write                                     | What Nullify shows                             |
+|----------------------------------------------------|------------------------------------------------|
+| `@Nullable Foo`                                    | `Foo?`                                         |
+| `@NotNull Bar`                                     | `Bar!`                                         |
+| `@Nullable Foo<@NotNull Bar>`                      | `Foo?<Bar!>`                                   |
+| `? extends Foo`                                    | `out Foo`                                      |
+| `? super Bar`                                      | `in Bar`                                       |
+| `@NotNull String[]`                                | `Array<String!>`                               |
+| `Object @Nullable ...`                             | `Vararg?<Object>`                              |
+| `@Nullable Foo @NotNull []`                        | `Array!<Foo?>`                                 |
+| `? extends @Nullable Foo`                          | `out Foo?`                                     |
+| `@NotNull String @Nullable [] @NotNull []`         | `Array?<Array!<String!>>`                      |
+| `@Nullable var name = ...`                         | `String?` (inferred type)                      |
+| `@ConfigValue("${app.name}") @NotNull String`      | `@ConfigValue("${app.name}") String!`          |
+| `(Serializable & @NotNull Consumer<...>)`          | `Serializable & Consumer!<in String!>`         |
+| `@Nullable final var foo = ...`                    | `final String? foo` (modifier kept)            |
+
+Nullify can even take such a complex type:
+```java
+@NotNull List<
+    ? extends @Nullable Supplier<
+        Map<
+            ? extends @NotNull CharSequence,
+            @Nullable Consumer<? super CharSequence>
+            >
+        >
+    > @NotNull [] list;
+
+// Folds to `Array!<List!<out Supplier?<Map<out CharSequence!, Consumer?<in CharSequence>>>>>`.
+```
 
 ---
 
@@ -167,10 +204,4 @@ Found a bug? Want a feature? Nullify tracks everything transparently:
 
 ---
 
-<!--
-  NOTE: this README is also mirrored to the public tracking repository
-  (workflow/sync-documents.ps1). The relative GIF paths below only resolve in
-  this repository; on the tracking repository, swap them for absolute URLs
-  (e.g. https://<host>/raw/.../docs/assets/hero-fold.gif) when adding real media.
--->
 *Made with ☕ and a healthy impatience for annotation noise.*

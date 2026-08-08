@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **Runnable folding demos (NL-F15)**: A set of independent Java demo files — `NullifyDemo` (the core entry with `main`) plus `VarInference`, `ArrayVararg` and `WildcardsGenerics` under `kurvcygnus.nullify.demo` — showcase every folding capability: nullity `?`/`!` markers, preserved non-nullity annotations, annotated `var` inference, arrays/varargs, wildcards, qualified types and intersection casts. Each file has its own runnable `main`.
+
+### Changed
+
+- **Demo showcase extracted into its own Gradle module**: The runnable demo files now live in a dedicated `demo` module instead of the plugin's sources, so the plugin build ships no demo code.
+- **README overhauled**: Restructured around the "show, don't tell" principle — the `What gets folded` reference is now a complete table placed after the feature showcase, feature headers are benefit-led, and the wording was made plainer and easier to read.
+
+### Fixed
+
+- **Modifier keywords between a declaration annotation and the type are no longer swallowed (NL-I36)**: `@Nullable final var foo = ...` now folds to `final String? foo` instead of `String? foo`, and similarly for any modifier keyword (e.g. `@Nullable static String`) written between the annotation and the type.
+
 ## [1.0.0] - 2026-08-06
 
 ### Added

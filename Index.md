@@ -74,6 +74,7 @@
 - [NL-I33](issues/NL-I33.md) — Annotation Picker Hardcodes `AllIcons.Nodes.Annotationtype` — Custom Icon Plugins Ignored
 - [NL-I34](issues/NL-I34.md) — Keyboard (F12/Ctrl+B) Navigation Can't Reach Interior Placeholder Tokens on Collapsed Folds
 - [NL-I35](issues/NL-I35.md) — Navigation on Folded Annotation Arguments Jumps to the Type Instead of the Annotation's Element Methods
+- [NL-I36](issues/NL-I36.md) — `final` Modifier Swallowed When Folding `@Nullable final var` / `@Nullable final String`
 
 ---
 
@@ -99,6 +100,7 @@
 ### Accepted
 
 - [NL-F7](features/NL-F7.md) — "Template Mode"
+- [NL-F16](features/NL-F16.md) — Nullability Reason Inline Hints — `value` Reason Displayed Above Collapsed Folds
 
 ### Completed
 
@@ -113,3 +115,4 @@
 - [NL-F12](features/NL-F12.md) — PSI-Anchored Fold Navigation — Replace Placeholder Text Re-Parsing with Fold-Time Segment Mapping
 - [NL-F13](features/NL-F13.md) — Generic Annotation Value Navigation — Folded Literals Delegate to the Platform
 - [NL-F14](features/NL-F14.md) — Auto-Collapse Nullify Folds After Project Analysis Completes
+- [NL-F15](features/NL-F15.md) — Runnable Folding Demo (`NullifyDemo`)
