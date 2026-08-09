@@ -1,6 +1,6 @@
 # NL-I39: Reason Hint Block Inlay Not Aligned With the Fold — Should Align to the Next Line's First Visible Character
 
-* Open
+* Resolved(`1.0.0`)
 
 * Found on version `1.0.0` by `Kurv Cygnus`
 
@@ -15,4 +15,4 @@ A block inlay is anchored to a document offset, not to a visual column. The curr
 
 ## Solution Result
 
-_Not yet resolved._
+The nullability reason hint now lines up with the declaration it belongs to: its left edge aligns with the first visible (non-whitespace) character of the folded line below it, so it reads as an annotation attached to that line instead of hugging the editor's left edge. The alignment follows horizontal scrolling.

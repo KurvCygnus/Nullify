@@ -1,6 +1,6 @@
 # NL-I41: Reason Hint Should Render in a Gray/Muted Color by Default
 
-* Open
+* Resolved(`1.0.0`)
 
 * Found on version `1.0.0` by `Kurv Cygnus`
 
@@ -15,4 +15,4 @@ The hint renderer hard-codes the editor's default foreground color for its paint
 
 ## Solution Result
 
-_Not yet resolved._
+The reason hint now renders in the editor's normal foreground by default, and users who want it muted can give it a custom color under `Settings → Editor → Nullify → Folding Behavior` — no longer stuck with an overly dark gray. The configured color is applied immediately to every open editor.

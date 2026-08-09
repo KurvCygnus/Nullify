@@ -10,10 +10,7 @@
 
 ### Open
 
-- [NL-I38](issues/NL-I38.md) — `Slow operations are prohibited on EDT` When Typing a Reason in a Nullability Annotation
-- [NL-I39](issues/NL-I39.md) — Reason Hint Block Inlay Not Aligned With the Fold — Should Align to the Next Line's First Visible Character
-- [NL-I40](issues/NL-I40.md) — Reason Hint Renders CJK Text as Tofu Blocks (`□□□`)
-- [NL-I41](issues/NL-I41.md) — Reason Hint Should Render in a Gray/Muted Color by Default
+*None*
 
 ### Ditched
 
@@ -79,6 +76,11 @@
 - [NL-I35](issues/NL-I35.md) — Navigation on Folded Annotation Arguments Jumps to the Type Instead of the Annotation's Element Methods
 - [NL-I36](issues/NL-I36.md) — `final` Modifier Swallowed When Folding `@Nullable final var` / `@Nullable final String`
 - [NL-I37](issues/NL-I37.md) — Auto-Collapse (NL-F14) Fails in Real IDE — Races the Async Fold Pass
+- [NL-I38](issues/NL-I38.md) — `Slow operations are prohibited on EDT` When Typing a Reason in a Nullability Annotation
+- [NL-I39](issues/NL-I39.md) — Reason Hint Block Inlay Not Aligned With the Fold — Should Align to the Next Line's First Visible Character
+- [NL-I40.1](issues/NL-I40.md#nl-i401-cjk-reason-hint-crashes-with-nosuchelementexception-when-no-configured-font-can-display-the-first-character) — CJK Reason Hint Crashes With `NoSuchElementException` When No Configured Font Can Display the First Character
+- [NL-I40.2](issues/NL-I40.md#nl-i402-reason-hint-renders-cjk-text-as-tofu-blocks) — Reason Hint Renders CJK Text as Tofu Blocks
+- [NL-I41](issues/NL-I41.md) — Reason Hint Should Render in a Gray/Muted Color by Default
 
 ---
 
@@ -86,7 +88,8 @@
 
 ### Open
 
-*None*
+- [NL-F17](features/NL-F17.md) — Long Nullability Reasons — Multi-Line Reason Hints with Expand/Collapse
+- [NL-F18](features/NL-F18.md) — Reason Hint Colors Through the Editor Color Scheme — Replace the Single-Hex Setting
 
 ### Ditched
 

@@ -135,6 +135,19 @@ Under **Settings → Editor → Nullify** you control everything:
 - Configure class/package/project-level nullability defaults (`@NotNullByDefault`, `@ParametersAreNonnullByDefault`, …).
 - Built-in support for the popular libraries: JetBrains, JSpecify, Spring, AndroidX, Eclipse JDT, Checker Framework, FindBugs/SpotBugs, and more.
 - FQCN inputs with code completion, and an interface that speaks your IDE's language.
+- Show or hide the nullability reason hint above collapsed folds, and give it a custom color.
+
+### 7. Reasons that stay with you
+
+<!--
+  GIF: docs/assets/reason-hint.gif
+  Record: `@Nullable("returns null when no entry matches")` folding to `String?`,
+  with the hint "This is nullable because "returns null when no entry matches"."
+  appearing above the collapsed fold; expanding the fold makes it disappear.
+-->
+![Nullity reason hints](docs/assets/reason-hint.gif)
+
+When Nullify collapses `@Nullable("returns null when no entry matches")` into `String?`, the reason doesn't vanish — it reappears as a hint right above the folded code: *"This is nullable because "returns null when no entry matches"."* It appears only while the fold is collapsed, resolves constant reasons too (`@Nullable(REASON)`), follows your editor's colors, and can be tuned — or switched off — under `Settings → Editor → Nullify`.
 
 ---
 

@@ -21,6 +21,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Annotation arguments navigate to their element methods (NL-I35)**: Clicking an argument inside a preserved annotation — e.g. `name` or `value` in `@MyAnno(name = "foo", value = "bar") String!` — now jumps to the annotation's element method (`MyAnno#name()` / `MyAnno#value()`) instead of the field's type.
 - **Clicking structural parts keeps the fold collapsed**: Clicking synthetic parts of a folded placeholder (whitespace, delimiters, `Array`/`Vararg` markers) keeps the fold collapsed, and IntelliJ shows its native "cannot find declaration to go to" guidance instead of navigating to a wrong declaration.
 - **Modifier keywords between a declaration annotation and the type are no longer swallowed (NL-I36)**: `@Nullable final var foo = ...` now folds to `final String? foo` instead of `String? foo`, and similarly for any modifier keyword (e.g. `@Nullable static String`) written between the annotation and the type.
+- **Typing a nullability annotation no longer triggers a `Slow operations are prohibited on EDT` error (NL-I38)**: The reason hint shown above a collapsed fold is now read without re-running the folding engine, so writing any `@Nullable`/`@NotNull` — even one without a reason — is handled safely on the UI thread.
+- **Reason hints resolve constant reasons**: A reason given as a compile-time constant — e.g. `@Nullable(REASON)` where `REASON` is a `static final String` — is now shown in the hint, not just a bare string literal.
+- **Reason hints align with the folded declaration (NL-I39)**: The hint's left edge now lines up with the first visible character of the folded line below it (following horizontal scroll), so it reads as an annotation attached to that declaration instead of hugging the editor's left edge.
+- **CJK text renders correctly in reason hints (NL-I40)**: Chinese (and other non-Latin) reason strings now show real glyphs instead of `□□□` placeholder boxes, using the editor's own font-fallback chain.
+- **Reason hint color is configurable (NL-I41)**: The hint text uses the editor's normal foreground by default and can be given a custom color under `Settings → Editor → Nullify → Folding Behavior` — no longer forced into an overly dark muted gray.
 
 ## [0.9.10] - 2026-08-03
 
