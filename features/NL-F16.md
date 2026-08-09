@@ -1,6 +1,6 @@
 # NL-F16: Nullability Reason Inline Hints — `value` Reason Displayed Above Collapsed Folds
 
-* Accepted(1)
+* Completed(`1.0.0`)
 
 * Suggested on version `1.0.0` by `Kurv Cygnus`
 

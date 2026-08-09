@@ -10,7 +10,10 @@
 
 ### Open
 
-*None*
+- [NL-I38](issues/NL-I38.md) — `Slow operations are prohibited on EDT` When Typing a Reason in a Nullability Annotation
+- [NL-I39](issues/NL-I39.md) — Reason Hint Block Inlay Not Aligned With the Fold — Should Align to the Next Line's First Visible Character
+- [NL-I40](issues/NL-I40.md) — Reason Hint Renders CJK Text as Tofu Blocks (`□□□`)
+- [NL-I41](issues/NL-I41.md) — Reason Hint Should Render in a Gray/Muted Color by Default
 
 ### Ditched
 
@@ -75,6 +78,7 @@
 - [NL-I34](issues/NL-I34.md) — Keyboard (F12/Ctrl+B) Navigation Can't Reach Interior Placeholder Tokens on Collapsed Folds
 - [NL-I35](issues/NL-I35.md) — Navigation on Folded Annotation Arguments Jumps to the Type Instead of the Annotation's Element Methods
 - [NL-I36](issues/NL-I36.md) — `final` Modifier Swallowed When Folding `@Nullable final var` / `@Nullable final String`
+- [NL-I37](issues/NL-I37.md) — Auto-Collapse (NL-F14) Fails in Real IDE — Races the Async Fold Pass
 
 ---
 
@@ -100,7 +104,6 @@
 ### Accepted
 
 - [NL-F7](features/NL-F7.md) — "Template Mode"
-- [NL-F16](features/NL-F16.md) — Nullability Reason Inline Hints — `value` Reason Displayed Above Collapsed Folds
 
 ### Completed
 
@@ -116,3 +119,4 @@
 - [NL-F13](features/NL-F13.md) — Generic Annotation Value Navigation — Folded Literals Delegate to the Platform
 - [NL-F14](features/NL-F14.md) — Auto-Collapse Nullify Folds After Project Analysis Completes
 - [NL-F15](features/NL-F15.md) — Runnable Folding Demo (`NullifyDemo`)
+- [NL-F16](features/NL-F16.md) — Nullability Reason Inline Hints — `value` Reason Displayed Above Collapsed Folds

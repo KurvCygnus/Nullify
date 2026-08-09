@@ -5,95 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
-
-### Added
-
-- **Runnable folding demos (NL-F15)**: A set of independent Java demo files — `NullifyDemo` (the core entry with `main`) plus `VarInference`, `ArrayVararg` and `WildcardsGenerics` under `kurvcygnus.nullify.demo` — showcase every folding capability: nullity `?`/`!` markers, preserved non-nullity annotations, annotated `var` inference, arrays/varargs, wildcards, qualified types and intersection casts. Each file has its own runnable `main`.
-
-### Changed
-
-- **Demo showcase extracted into its own Gradle module**: The runnable demo files now live in a dedicated `demo` module instead of the plugin's sources, so the plugin build ships no demo code.
-- **README overhauled**: Restructured around the "show, don't tell" principle — the `What gets folded` reference is now a complete table placed after the feature showcase, feature headers are benefit-led, and the wording was made plainer and easier to read.
-
-### Fixed
-
-- **Modifier keywords between a declaration annotation and the type are no longer swallowed (NL-I36)**: `@Nullable final var foo = ...` now folds to `final String? foo` instead of `String? foo`, and similarly for any modifier keyword (e.g. `@Nullable static String`) written between the annotation and the type.
-
 ## [1.0.0] - 2026-08-06
 
 ### Added
 
+- **Nullability reason hints above collapsed folds (NL-F16)**: When Nullify collapses `@Nullable`/`@NotNull` into `?`/`!` markers, the annotation's `value` reason (e.g. `@Nullable("returns null when no entry matches")`) is now shown as a hint right above the collapsed fold — reading `This is nullable because "returns null when no entry matches".` The hint targets the top-level type's nullability (the `List` in `List<Map<String, Pair<Integer, Char>>>`), appears only while the fold is collapsed, and disappears when it expands. No `value`, no hint. Can be turned off under `Settings → Editor → Nullify → Folding Behavior`.
+- **Runnable folding demos (NL-F15)**: A set of independent Java demo files — `NullifyDemo` (the core entry with `main`) plus `VarInference`, `ArrayVararg` and `WildcardsGenerics` under `kurvcygnus.nullify.demo` — showcase every folding capability: nullity `?`/`!` markers, preserved non-nullity annotations, annotated `var` inference, arrays/varargs, wildcards, qualified types and intersection casts. Each file has its own runnable `main`.
 - **Nullify folds collapse automatically after project analysis completes (NL-F14)**: Once the project finishes its analysis (indexing), the Nullify fold regions in the editor tab you are currently using are collapsed automatically, so the compact `String?`/`Foo!` syntax is shown without manual folding. Background tabs and non-Nullify folds (method bodies, imports) are left untouched. Can be turned off under `Settings → Editor → Nullify → Folding Behavior`.
 - **Fold navigation jumps to the exact declaration (NL-F12)**: Clicking any part of a folded placeholder now navigates to the declaration the IDE would have shown before folding. Type names jump to their classes, nullability markers to their annotations, and wildcard-only folds such as `List<out Foo>` navigate to the bound type.
 - **Annotation value literals navigate to whatever the IDE resolves (NL-F13)**: Clicking a literal inside a preserved annotation in a folded placeholder — e.g. Spring's `@Value("${app.name}")` — now jumps to the same target the IDE would resolve in unfolded code (config key, bean, profile, …), including config keys defined in several files (e.g. Quarkus Standard/Dev/Test profiles), where the IDE offers a target chooser — thanks to the IDE's own navigation machinery rather than framework-specific support.
 
 ### Fixed
 
+- **Auto-collapse now reliably triggers in real IDE usage (NL-F14)**: The post-analysis auto-collapse previously raced the platform's asynchronous fold computation and could be silently overwritten by it, leaving Nullify folds expanded. The collapse now happens the moment each Nullify fold first appears, so it can never be lost to the very pass that created the region — while manual expands are still respected.
 - **Annotation arguments navigate to their element methods (NL-I35)**: Clicking an argument inside a preserved annotation — e.g. `name` or `value` in `@MyAnno(name = "foo", value = "bar") String!` — now jumps to the annotation's element method (`MyAnno#name()` / `MyAnno#value()`) instead of the field's type.
 - **Clicking structural parts keeps the fold collapsed**: Clicking synthetic parts of a folded placeholder (whitespace, delimiters, `Array`/`Vararg` markers) keeps the fold collapsed, and IntelliJ shows its native "cannot find declaration to go to" guidance instead of navigating to a wrong declaration.
+- **Modifier keywords between a declaration annotation and the type are no longer swallowed (NL-I36)**: `@Nullable final var foo = ...` now folds to `final String? foo` instead of `String? foo`, and similarly for any modifier keyword (e.g. `@Nullable static String`) written between the annotation and the type.
 
 ## [0.9.10] - 2026-08-03
-
-### Fixed
-
-- **Annotation picker icons follow your IDE's icon theme (NL-I33)**: The annotation completion popup now renders each candidate with the icon the IDE resolves for that annotation class, so icon plugins that restyle annotation glyphs are honored everywhere instead of only in the project/structure views. The stock annotation icon is kept as the fallback when an annotation cannot be resolved.
-
-## [0.9.9] - 2026-08-03
-
-### Fixed
-
-- **Ctrl+clicking a folded placeholder with no target no longer unfolds the fold (NL-I32.2)**: When a folded placeholder position has nothing to navigate to (whitespace, synthetic `Array`/`Vararg` tokens), Ctrl+click (or Ctrl+B/F12) keeps the fold collapsed instead of silently expanding it, and IntelliJ shows its native "cannot find declaration to go to" guidance when nothing can be resolved.
-
-## [0.9.8] - 2026-08-03
-
-### Fixed
-
-- **Type-argument boundary navigation on folded types (NL-I32.1)**: Ctrl+clicking just to the right of a type argument inside a folded type — on the `,` after `E` or the closing `>` after `V` in e.g. `EnumMap!<E, V>` — now navigates to that type argument's declaration instead of doing nothing.
-
-## [0.9.7] - 2026-08-02
-
-### Fixed
-
-- **Navigation on folded `var` locals works (NL-I31.2)**: Ctrl+clicking a folded annotated `var` placeholder now navigates like any explicit type — the type name and type arguments jump to their declarations, and the `?`/`!` marker jumps to the nullability annotation.
-
-## [0.9.6] - 2026-08-02
-
-### Fixed
-
-- **Folded `var` locals place the marker correctly in Nullify style (NL-I31.1)**: For an annotated `var` local whose inferred type is a complex generic, Nullify-style folding now hugs the marker to the outer type name (`Map!<Set<String>, Pair<Integer, Double>>`) instead of appending it to the end of the whole type. Kotlin-style folding keeps its trailing marker.
-
-## [0.9.5] - 2026-08-02
-
-### Fixed
-
-- **The inconsistent-nullability inspection no longer crashes while typing (NL-I30)**: Typing a field whose type carries a complex generic nullability annotation (e.g. `@NotNull Map<Set<String>, Pair<Integer, Double>>`) could make the inspection throw and stop flagging the rest of the file. Flagging now completes even for malformed mid-typing annotations.
-
-## [0.9.4] - 2026-08-01
-
-### Fixed
-
-- **Completing an annotation replaces the typed prefix again (NL-I28.2)**: In any annotation FQCN field, pressing Enter on a suggestion now replaces the characters you already typed instead of appending the full name after them, and the typed prefix is highlighted in the suggestion list again.
-
-## [0.9.3] - 2026-08-01
-
-### Fixed
-
-- **Project-default FQCN fields are usable again (NL-I29)**: The six element/class/package-level default fields render at a normal height and can be clicked, focused, and typed into; they are no longer collapsed to a thin bar.
-
-## [0.9.2] - 2026-08-01
-
-### Fixed
-
-- **Uppercase-first typing now yields suggestions (NL-I28.1)**: Typing an uppercase first character (e.g. `N`) in any annotation FQCN field no longer results in an empty popup — suggestions appear exactly as they do for the lowercase form.
-
-## [0.9.1] - 2026-08-01
-
-### Fixed
-
-- **Annotation picker suggestions show `simpleName (package)` (NL-I27)**: Completion popup candidates are now rendered as `Nullable (org.jetbrains.annotations)` instead of the full FQCN, so long library names are easier to scan and the annotation family is visible at a glance. The inserted value remains the FQCN.
-
-## [0.9.0] - 2026-07-31
 
 ### Added
 
@@ -101,42 +30,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Built-in annotations are rejected in the registry (NL-F9)**: Adding an annotation that Nullify already supports out of the box to the annotation registry is now blocked with a clear message, and such annotations are hidden from the completion popup.
 - **Graceful fallback without an open project (NL-F9)**: When no project is open, the FQCN inputs fall back to plain text entry with validation only, and the project-default sections show a placeholder.
 
+### Fixed
+
+- **Annotation picker icons follow your IDE's icon theme (NL-I33)**: The annotation completion popup now renders each candidate with the icon the IDE resolves for that annotation class, so icon plugins that restyle annotation glyphs are honored everywhere instead of only in the project/structure views. The stock annotation icon is kept as the fallback when an annotation cannot be resolved.
+- **Ctrl+clicking a folded placeholder with no target no longer unfolds the fold (NL-I32.2)**: When a folded placeholder position has nothing to navigate to (whitespace, synthetic `Array`/`Vararg` tokens), Ctrl+click (or Ctrl+B/F12) keeps the fold collapsed instead of silently expanding it, and IntelliJ shows its native "cannot find declaration to go to" guidance when nothing can be resolved.
+- **Type-argument boundary navigation on folded types (NL-I32.1)**: Ctrl+clicking just to the right of a type argument inside a folded type — on the `,` after `E` or the closing `>` after `V` in e.g. `EnumMap!<E, V>` — now navigates to that type argument's declaration instead of doing nothing.
+- **Navigation on folded `var` locals works (NL-I31.2)**: Ctrl+clicking a folded annotated `var` placeholder now navigates like any explicit type — the type name and type arguments jump to their declarations, and the `?`/`!` marker jumps to the nullability annotation.
+- **Folded `var` locals place the marker correctly in Nullify style (NL-I31.1)**: For an annotated `var` local whose inferred type is a complex generic, Nullify-style folding now hugs the marker to the outer type name (`Map!<Set<String>, Pair<Integer, Double>>`) instead of appending it to the end of the whole type. Kotlin-style folding keeps its trailing marker.
+- **The inconsistent-nullability inspection no longer crashes while typing (NL-I30)**: Typing a field whose type carries a complex generic nullability annotation (e.g. `@NotNull Map<Set<String>, Pair<Integer, Double>>`) could make the inspection throw and stop flagging the rest of the file. Flagging now completes even for malformed mid-typing annotations.
+- **Completing an annotation replaces the typed prefix again (NL-I28.2)**: In any annotation FQCN field, pressing Enter on a suggestion now replaces the characters you already typed instead of appending the full name after them, and the typed prefix is highlighted in the suggestion list again.
+- **Project-default FQCN fields are usable again (NL-I29)**: The six element/class/package-level default fields render at a normal height and can be clicked, focused, and typed into; they are no longer collapsed to a thin bar.
+- **Uppercase-first typing now yields suggestions (NL-I28.1)**: Typing an uppercase first character (e.g. `N`) in any annotation FQCN field no longer results in an empty popup — suggestions appear exactly as they do for the lowercase form.
+- **Annotation picker suggestions show `simpleName (package)` (NL-I27)**: Completion popup candidates are now rendered as `Nullable (org.jetbrains.annotations)` instead of the full FQCN, so long library names are easier to scan and the annotation family is visible at a glance. The inserted value remains the FQCN.
+
 ## [0.8.2] - 2026-07-31
 
 ### Added
 
 - **Analysis mode for the inconsistent-nullability inspection (NL-I26)**: Added an **"Aggressive analysis"** toggle under `Settings → Editor → Nullify → Code Inspections`. When enabled (default), the whole file is re-analyzed on every change so warnings and quick fixes are always up to date. When disabled (**Prudence mode**), only the edited region is re-analyzed for faster response on large files — the file-majority check may lag behind edits.
+- **Project-level default nullability annotation configuration (NL-F10)**: Nullify now supports storing a project-wide default `@Nullable` and `@NotNull` annotation FQCN, shared with the whole team through VCS. The `Inconsistent Nullability Annotation` inspection offers two smart quick fixes: **"Set as project default"** (adopts the file's majority annotation as the project's default) and **"Replace with project default"** (replaces non-conforming annotations with the project's preferred annotation). Defaults are configured under `Settings → Editor → Nullify`.
+- **Extended annotation registry**: Added out-of-the-box support for JSpecify (`org.jspecify.annotations.Nullable/NonNull/NullMarked`), Spring Framework (`org.springframework.lang.Nullable/NonNull/NonNullApi`), Eclipse JDT (`org.eclipse.jdt.annotation.Nullable/NonNull`), AndroidX (`androidx.annotation.Nullable/NonNull`), Checker Framework Compat (`org.checkerframework.checker.nullness.compatqual.NullableDecl/NonNullDecl`), and FindBugs/SpotBugs (`edu.umd.cs.findbugs.annotations.Nullable/NonNull`).
 
 ### Fixed
 
 - **Flagging is now order-independent and symmetric (NL-I26)**: When several same-mark annotations from different namespaces sit on one element, exactly the inconsistent (non-majority / non-default) ones are flagged, each with the same quick fixes — regardless of the order they are written in. Previously both annotations could be flagged with different fix sets.
 - **Handles three or more conflicting annotations (NL-I26)**: Multiple same-mark annotations on one element (e.g. `@org.jetbrains.NotNull @javax.Nonnull @jakarta.Nonnull`) are now each flagged and individually removable, instead of assuming a single minority annotation.
 - **"Set as default" and "Replace with default" converge the element in one step (NL-I26)**: Applying either fix leaves the element with a single canonical annotation, so no follow-up fix is needed.
-
-### Changed
-
-- **Majority detection requires a clear majority (NL-I26)**: The file's canonical annotation is now chosen only when it clearly outnumbers all other candidates combined. Tied or near-tied usage is no longer flagged, reducing warnings that flicker while typing near a 50/50 boundary.
-
-## [0.8.1] - 2026-07-30
-
-### Changed
-
-- **Scope-level defaults redesigned (NL-I25)**: Nullability default annotations are now configured independently for three scope levels — **Element**, **Class**, and **Package** — each with a single global `@Nullable`/`@NotNull` FQCN under `Settings → Editor → Nullify`. This replaces the previous class/package-name-to-FQCN override mapping, which was unintuitive and error-prone.
-
-## [0.8.0] - 2026-07-30
-
-### Added
-
-- **Project-level default nullability annotation configuration (NL-F10)**: Nullify now supports storing a project-wide default `@Nullable` and `@NotNull` annotation FQCN, shared with the whole team through VCS. The `Inconsistent Nullability Annotation` inspection offers two smart quick fixes: **"Set as project default"** (adopts the file's majority annotation as the project's default) and **"Replace with project default"** (replaces non-conforming annotations with the project's preferred annotation). Defaults are configured under `Settings → Editor → Nullify`.
-- **Extended annotation registry**: Added out-of-the-box support for JSpecify (`org.jspecify.annotations.Nullable/NonNull/NullMarked`), Spring Framework (`org.springframework.lang.Nullable/NonNull/NonNullApi`), Eclipse JDT (`org.eclipse.jdt.annotation.Nullable/NonNull`), AndroidX (`androidx.annotation.Nullable/NonNull`), Checker Framework Compat (`org.checkerframework.checker.nullness.compatqual.NullableDecl/NonNullDecl`), and FindBugs/SpotBugs (`edu.umd.cs.findbugs.annotations.Nullable/NonNull`).
-
-### Fixed
-
 - **Fold regions refresh on settings change (NL-I22)**: Changing folding behavior in settings now updates the fold regions in all open editors immediately — previously the new placeholder text only appeared after reopening the file or manually toggling a fold.
 - **Inspection display name follows the IDE language (NL-I24)**: The inspection's display name now follows the IDE's display language instead of always showing English.
 
 ### Changed
 
+- **Majority detection requires a clear majority (NL-I26)**: The file's canonical annotation is now chosen only when it clearly outnumbers all other candidates combined. Tied or near-tied usage is no longer flagged, reducing warnings that flicker while typing near a 50/50 boundary.
+- **Scope-level defaults redesigned (NL-I25)**: Nullability default annotations are now configured independently for three scope levels — **Element**, **Class**, and **Package** — each with a single global `@Nullable`/`@NotNull` FQCN under `Settings → Editor → Nullify`. This replaces the previous class/package-name-to-FQCN override mapping, which was unintuitive and error-prone.
 - **Inspection renamed (NL-F3/NL-F11)**: `Duplicated Nullability Annotation` has been renamed to **`Inconsistent Nullability Annotation`** to reflect its broader scope — it covers per-element duplicates and file-level namespace mixing.
 
 ## [0.6.0] - 2026-07-29
@@ -161,88 +87,50 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.4.1] - 2026-07-29
 
-### Changed
-
-- **Improved editing responsiveness (NL-I18)**: The folding engine now reinitializes only when settings actually change, reducing overhead during editing and repaints.
-
-## [0.4.0] - 2026-07-29
-
 ### Added
 
 - **Kotlin-style nullity markers**: Added `kotlinStyleNullityMarkers` config option. When enabled, `?` and `!` markers are placed after generic type arguments (e.g., `List<String!>?`) matching Kotlin syntax. Closes NL-F6.
 
+### Changed
+
+- **Improved editing responsiveness (NL-I18)**: The folding engine now reinitializes only when settings actually change, reducing overhead during editing and repaints.
+
 ## [0.3.1] - 2026-07-28
-
-### Fixed
-
-- NL-I20: Scope-default nullability annotations (`@NotNullByDefault`, `@ParametersAreNonnullByDefault`) now propagate to type arguments, array components, and wildcard bounds. Previously, only the outermost type position inherited the scope default; nested positions were silently treated as unannotated.
-
-## [0.3.0] - 2026-07-28
 
 ### Added
 
 - NL-F8: Class-level and package-level nullability default annotations (e.g., `@NotNullByDefault`) are now fully supported. Elements within a scope annotated with a nullability default automatically fold according to that default, unless overridden by an explicit annotation. Custom scope-default annotations can also be registered in the settings UI.
 
+### Fixed
+
+- NL-I20: Scope-default nullability annotations (`@NotNullByDefault`, `@ParametersAreNonnullByDefault`) now propagate to type arguments, array components, and wildcard bounds. Previously, only the outermost type position inherited the scope default; nested positions were silently treated as unannotated.
+
 ## [0.2.2] - 2026-07-28
-
-### Fixed
-
-- NL-I19.2: Qualifier type-use annotations on intermediate segments of deeply qualified types (e.g., `A.@NotNull B.C`) are now correctly resolved and folded.
-
-## [0.2.1] - 2026-07-27
-
-### Fixed
-
-- NL-I19: Qualified types with a type annotation between the qualifier and identifier (e.g., `A.@NotNull B`) no longer produce incorrect fold placeholders (`A.A.B!`). The fold range now correctly covers the full type element.
-
-## [0.2.0] - 2026-07-27
 
 ### Added
 
 - NL-F5: Settings UI page under `Settings → Editor → Nullify`. Users can now toggle nullity folding and wildcard folding independently, and register custom `@Nullable`/`@NotNull` annotation types through an editable table. Configuration changes take effect immediately without restarting the IDE.
+
+### Fixed
+
+- NL-I19.2: Qualifier type-use annotations on intermediate segments of deeply qualified types (e.g., `A.@NotNull B.C`) are now correctly resolved and folded.
+- NL-I19: Qualified types with a type annotation between the qualifier and identifier (e.g., `A.@NotNull B`) no longer produce incorrect fold placeholders (`A.A.B!`). The fold range now correctly covers the full type element.
 
 ## [0.1.6] - 2026-07-27
 
 ### Added
 
 - NL-I17: Intersection types in cast expressions (e.g., `(Serializable & Consumer<? super String>)`) now fold correctly.
-
-## [0.1.5] - 2026-07-26
+- NL-F1: Navigation support for folded types. Ctrl+click on folded type placeholders now navigates to the type or annotation declaration. Each visual segment (type name, `?`/`!` suffix, annotation, generic delimiter) is resolved independently.
+- NL-I16.1: Placeholder navigation now correctly targets each visual segment. Annotations navigate to their declaration using the file's import system for deterministic disambiguation.
 
 ### Fixed
 
 - NL-I16.7: The first navigation action (Ctrl+Click / F12) in any newly opened editor now always returns a target.
-
-## [0.1.4]
-
-### Fixed
-
 - NL-I16.6: Ctrl+Click navigation no longer misfires when the caret moves during a simultaneous mouse click.
-
-## [0.1.3]
-
-### Fixed
-
 - NL-I16.5: Clicking on generic delimiters (`<`, `>`) adjacent to nullity suffixes (`!`, `?`) now produces the correct navigation target.
-
-## [0.1.2]
-
-### Fixed
-
 - NL-I16.4: Generic type arguments inside folded types (e.g., `Foo` in `Map!<Foo?, Bar!>`) now navigate to the correct declaration instead of the outermost enclosing type.
-
-## [0.1.1]
-
-### Fixed
-
 - NL-I16.2: Navigation threading fixed to eliminate IDE freezes and deadlocks when clicking or using keyboard shortcuts on folded types.
-
-## [0.1.0]
-
-### Added
-
-- NL-F1: Navigation support for folded types. Ctrl+click on folded type placeholders now navigates to the type or annotation declaration. Each visual segment (type name, `?`/`!` suffix, annotation, generic delimiter) is resolved independently.
-- NL-I16.1: Placeholder navigation now correctly targets each visual segment. Annotations navigate to their declaration using the file's import system for deterministic disambiguation.
 
 ## [0.0.1] - 2026-07-24
 

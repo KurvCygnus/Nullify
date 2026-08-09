@@ -1,0 +1,7 @@
+Copyright (c) 2026 Kurv Cygnus. All rights reserved.
+
+This source code and related documentation constitute the trade secrets and proprietary property of Kurv Cygnus.
+No part of this code may be used in any form—including but not limited to reproduction, modification,
+transmission, distribution, decompilation, or execution in an unauthorized environment—without the express written permission of the copyright owner.
+
+Violators will be held legally liable.
