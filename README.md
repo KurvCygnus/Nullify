@@ -22,9 +22,9 @@
 
 ## See it in action
 
-![Nullify: all annotated stuff gets folded automatically, once the project analysis is done](docs/assets/startup_fold.gif)
+![All annotated stuff gets folded automatically, once the project analysis is done](docs/assets/startup_fold.gif)
 
-Type `@Nullable Foo`, and it folds to `Foo?` right before your eyes. Hover or Ctrl+click the folded text, and it still jumps to the declaration. It's just a view — your source never changes.
+Type `@Nullable String`, and it folds to `String?` right before your eyes. Hover or Ctrl+click the folded text, and it still jumps to the declaration. It's just a view — your source never changes.
 
 ---
 

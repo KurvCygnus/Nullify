@@ -1,6 +1,6 @@
 # NL-F18: Reason Hint Colors Through the Editor Color Scheme — Replace the Single-Hex Setting
 
-* Open
+* Ditched(merged into [NL-F20](NL-F20.md))
 
 * Suggested on version `1.0.0` by `Kurv Cygnus`
 

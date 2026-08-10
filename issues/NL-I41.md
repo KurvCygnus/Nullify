@@ -15,4 +15,4 @@ The hint renderer hard-codes the editor's default foreground color for its paint
 
 ## Solution Result
 
-The reason hint now renders in the editor's normal foreground by default, and users who want it muted can give it a custom color under `Settings → Editor → Nullify → Folding Behavior` — no longer stuck with an overly dark gray. The configured color is applied immediately to every open editor.
+The reason hint now renders in the editor's normal foreground by default, and users who want it muted can theme it under `Settings → Editor → Color Scheme → Nullify` — no longer stuck with an overly dark gray. The color follows light/dark scheme switches automatically and applies to every open editor immediately.

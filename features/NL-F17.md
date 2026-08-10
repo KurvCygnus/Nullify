@@ -1,6 +1,6 @@
 # NL-F17: Long Nullability Reasons — Multi-Line Reason Hints with Expand/Collapse
 
-* Open
+* Ditched(merged into [NL-F20](NL-F20.md))
 
 * Suggested on version `1.0.0` by `Kurv Cygnus`
 

@@ -119,3 +119,22 @@ The position-tracking listeners were installed too late — inside the navigatio
 ### Solution Result
 
 Position tracking is installed eagerly for every new editor, right-edge clicks on a marker resolve correctly, and listeners are properly stored and cleaned up.
+
+---
+
+## NL-I16.8: Qualifier Segments Lose Navigation in Qualified References
+
+* Resolved(`1.0.0`)
+
+
+### Description
+
+After the segment-driven navigation rewrite removed hardcoded handling, the qualifier part of a folded qualified type — `Map` in `Map.Entry` — no longer navigates anywhere, while `Entry` still jumps to its declaration.
+
+### Root Cause
+
+The fold-time segment map only records a navigation anchor for the identifier of a qualified type, so the qualifier text renders as a no-target literal.
+
+### Solution Result
+
+Clicking the qualifier part of a folded qualified type now navigates to the qualifier class — `Map` in `Map.Entry` jumps to `java.util.Map`, while `Entry` keeps navigating to the nested class.

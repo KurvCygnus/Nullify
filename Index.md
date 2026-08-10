@@ -51,6 +51,7 @@
 - [NL-I16.5](issues/NL-I16.md#nl-i165-suffix-adjacent-delimiter-click-gap-ux) — Suffix-Adjacent Delimiter Click Gap (UX)
 - [NL-I16.6](issues/NL-I16.md#nl-i166-caretlistener-tramples-mouseadapters-placeholderclickinfo) — CaretListener Tramples MouseAdapter's PlaceholderClickInfo
 - [NL-I16.7](issues/NL-I16.md#nl-i167-smart-filling-this-will-be-the-final) — Smart filling: This will be the final!!!
+- [NL-I16.8](issues/NL-I16.md#nl-i168-qualifier-segments-lose-navigation-in-qualified-references) — Qualifier Segments Lose Navigation in Qualified References
 - [NL-I17](issues/NL-I17.md) — Back to `IrNode`: Refocus on Intersection
 - [NL-I18](issues/NL-I18.md) — Config Sync Redesign — On-Demand Registry/Pipeline Re-creation
 - [NL-I19.1](issues/NL-I19.md#nl-i191-qualified-types-incorrect-folding-result) — Qualified Types' Incorrect Folding Result
@@ -81,6 +82,9 @@
 - [NL-I40.1](issues/NL-I40.md#nl-i401-cjk-reason-hint-crashes-with-nosuchelementexception-when-no-configured-font-can-display-the-first-character) — CJK Reason Hint Crashes With `NoSuchElementException` When No Configured Font Can Display the First Character
 - [NL-I40.2](issues/NL-I40.md#nl-i402-reason-hint-renders-cjk-text-as-tofu-blocks) — Reason Hint Renders CJK Text as Tofu Blocks
 - [NL-I41](issues/NL-I41.md) — Reason Hint Should Render in a Gray/Muted Color by Default
+- [NL-I42.1](issues/NL-I42.md#nl-i421-color-scheme-effects-and-bolditalic-not-applied-in-the-editor) — Color Scheme Effects and Bold/Italic Not Applied in the Editor
+- [NL-I42.2](issues/NL-I42.md#nl-i422-overlong-reason-text-overflows-horizontally--no-wrapping-default-max-inline-length-too-small) — Overlong Reason Text Overflows Horizontally — No Wrapping; Default Max-Inline Length Too Small
+- [NL-I42.3](issues/NL-I42.md#nl-i423-long-hint-has-no-fold-arrow-in-the-gutter) — Long Hint Has No Fold Arrow in the Gutter
 
 ---
 
@@ -88,13 +92,15 @@
 
 ### Open
 
-- [NL-F17](features/NL-F17.md) — Long Nullability Reasons — Multi-Line Reason Hints with Expand/Collapse
-- [NL-F18](features/NL-F18.md) — Reason Hint Colors Through the Editor Color Scheme — Replace the Single-Hex Setting
+*None*
 
 ### Ditched
 
 - [NL-F2](features/NL-F2.md) — Better Local Variable Support: Dataflow Integration
 - [NL-F11](features/NL-F11.md) — Mixed Nullability Namespace Check (File-Level Consistency) — Merged into NL-F3
+- [NL-F17](features/NL-F17.md) — Long Nullability Reasons — Multi-Line Reason Hints with Expand/Collapse — Merged into NL-F20
+- [NL-F18](features/NL-F18.md) — Reason Hint Colors Through the Editor Color Scheme — Replace the Single-Hex Setting — Merged into NL-F20
+- [NL-F19](features/NL-F19.md) — Configurable Prefix for Nullability Reason Inline Hints — Merged into NL-F20
 
 ### Considering
 
@@ -123,3 +129,4 @@
 - [NL-F14](features/NL-F14.md) — Auto-Collapse Nullify Folds After Project Analysis Completes
 - [NL-F15](features/NL-F15.md) — Runnable Folding Demo (`NullifyDemo`)
 - [NL-F16](features/NL-F16.md) — Nullability Reason Inline Hints — `value` Reason Displayed Above Collapsed Folds
+- [NL-F20](features/NL-F20.md) — Reason Hint Enhancements — Multi-Line Reasons, Editor Color Scheme, Configurable Prefix, and Font Size
