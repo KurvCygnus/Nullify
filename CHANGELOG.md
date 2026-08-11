@@ -41,6 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **The auto-collapse setting is renamed and clarified**: The checkbox under `Settings → Editor → Nullify → Folding Behavior` previously read "Auto-collapse Nullify folds in the current editor after project analysis completes"; it is now simply **"Auto-collapse"**, with a description making clear that Nullify folds are collapsed as soon as they are created — after the project finishes its analysis and live while you type (e.g. `final @NotNull var foo = ""` folds to `final String! foo = ""` as soon as the initializer is written).
 - **The reason hint color setting moved to the Editor Color Scheme**: The custom color checkbox under `Settings → Editor → Nullify → Folding Behavior` is replaced by a "Reason hint" attribute under `Settings → Editor → Color Scheme → Nullify`, which themes the hint like any editor text and follows scheme switches automatically (NL-F20).
 - **Reason-hint pickers are now single controls (NL-F20)**: The reason-hint prefix and the max-inline-length settings each used to be a combo box plus a separate "custom value" field that only became enabled when `Custom...` was selected. Each pair is now one component: choosing `Custom...` turns the box itself into an editable field, so the value is typed in place.
+- **Tracking site redesign**: modern dashboard with a public-facing intro, live search and filters, status icons, natural numeric ordering, dark/light themes, and fixed cross-document links and anchors.
 
 ## [0.9.10] - 2026-08-03
 
