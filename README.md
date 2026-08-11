@@ -22,7 +22,7 @@
 
 ## See it in action
 
-![All annotated stuff gets folded automatically, once the project analysis is done](docs/assets/startup_fold.gif)
+![All annotated stuff gets folded automatically, once the project analysis is done](assets/startup_fold.gif)
 
 Type `@Nullable String`, and it folds to `String?` right before your eyes. Hover or Ctrl+click the folded text, and it still jumps to the declaration. It's just a view — your source never changes.
 
@@ -65,68 +65,68 @@ Why you'll love it:
 ### 1. Nullity at a glance — `Foo?` / `Bar!`
 
 <!--
-  GIF: docs/assets/fold-nullity.gif
+  GIF: assets/fold-nullity.gif
   Record: fold `@Nullable`/`@NotNull` in a mix of fields, parameters, and return
   types; unfold one placeholder to prove the original annotation is still there.
 -->
-![Nullity marker folding](docs/assets/fold-nullity.gif)
+![Nullity marker folding](assets/fold-nullity.gif)
 
 `@Nullable Foo` → `Foo?`, `@NotNull Bar` → `Bar!`. Nullify understands annotations wherever Java puts them — on the type, the declaration, the class, or the whole package — and gets every position right.
 
 ### 2. Variance that reads itself — `out` / `in`
 
 <!--
-  GIF: docs/assets/fold-wildcards.gif
+  GIF: assets/fold-wildcards.gif
   Record: a generic signature like `List<? extends Foo>` folding to
   `List<out Foo>` and `Consumer<? super Bar>` to `Consumer<in Bar>`.
 -->
-![Wildcard variance folding](docs/assets/fold-wildcards.gif)
+![Wildcard variance folding](assets/fold-wildcards.gif)
 
 `? extends Foo` → `out Foo`, `? super Bar` → `in Bar` — the same variance words Kotlin uses, so generic signatures finally read the way they *mean*.
 
 ### 3. Arrays & varargs, normalized — `Array!<String?>` / `Vararg?<Object>`
 
 <!--
-  GIF: docs/assets/fold-arrays.gif
+  GIF: assets/fold-arrays.gif
   Record: `@NotNull String[]` folding to `Array<String!>` and a vararg parameter
   folding to `Vararg?<...>`, including multidimensional annotation placement.
 -->
-![Array and vararg folding](docs/assets/fold-arrays.gif)
+![Array and vararg folding](assets/fold-arrays.gif)
 
 Arrays and varargs fold into clean generic syntax — `Array<String!>`, `Vararg?<Object>` — with every dimension's annotation placed exactly where it belongs. Nothing is flattened, nothing is misattributed.
 
 ### 4. Navigation never breaks
 
 <!--
-  GIF: docs/assets/navigation.gif
+  GIF: assets/navigation.gif
   Record: Ctrl+click (or Ctrl+B) on `Foo?` jumps to the Foo class, on the `?`
   marker jumps to the annotation declaration, and on a preserved annotation
   value literal (e.g. Spring's @Value("${app.name}")) jumps to the config key.
 -->
-![Folded placeholder navigation](docs/assets/navigation.gif)
+![Folded placeholder navigation](assets/navigation.gif)
 
 Folding should never cost you navigation. Ctrl+click any part of a folded placeholder — the type, a type argument, the `?`/`!` marker, even a preserved annotation's value literal — and you land exactly where the IDE would have taken you before folding.
 
 ### 5. Catch annotation chaos
 
 <!--
-  GIF: docs/assets/inspection.gif
+  GIF: assets/inspection.gif
   Record: two conflicting nullability annotations on one element being flagged,
   with the quick fix replacing the non-conforming one with the file/project
   default.
 -->
-![Inconsistent nullability inspection](docs/assets/inspection.gif)
+![Inconsistent nullability inspection](assets/inspection.gif)
 
 Nullify ships the **Inconsistent Nullability Annotation** inspection: it spots duplicated or mixed-library nullability annotations (`@javax.Nonnull` vs `@org.jetbrains.annotations.NotNull`, `@NotNullByDefault` vs `@ParametersAreNonnullByDefault`, …) and offers one-click quick fixes — remove the duplicate, or align it with the file's / project's standard annotation.
 
 ### 6. Your rules, your defaults
 
 <!--
-  GIF: docs/assets/settings.gif
+  GIF: assets/settings.gif
   Record: opening Settings → Editor → Nullify and toggling options / registering
   a custom annotation FQCN.
 -->
-![Nullify settings](docs/assets/settings.gif)
+![Nullify settings](assets/settings.gif)
 
 Under **Settings → Editor → Nullify** you control everything:
 
@@ -140,12 +140,12 @@ Under **Settings → Editor → Nullify** you control everything:
 ### 7. Reasons that stay with you
 
 <!--
-  GIF: docs/assets/reason-hint.gif
+  GIF: assets/reason-hint.gif
   Record: `@Nullable("returns null when no entry matches")` folding to `String?`,
   with the hint "This is nullable because "returns null when no entry matches"."
   appearing above the collapsed fold; expanding the fold makes it disappear.
 -->
-![Nullity reason hints](docs/assets/reason-hint.gif)
+![Nullity reason hints](assets/reason-hint.gif)
 
 When Nullify collapses `@Nullable("returns null when no entry matches")` into `String?`, the reason doesn't vanish — it reappears as a hint right above the folded code: *"This is nullable because "returns null when no entry matches"."* It appears only while the fold is collapsed, resolves constant reasons too (`@Nullable(REASON)`), follows your editor's colors, and can be tuned — or switched off — under `Settings → Editor → Nullify`.
 

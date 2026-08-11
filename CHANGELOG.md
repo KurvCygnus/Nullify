@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Reason hint colors live in the Editor Color Scheme (NL-F20)**: The hint is now a first-class editor color — a "Reason hint" attribute under `Settings → Editor → Color Scheme → Nullify` with theme-able foreground/background/effects that follow light/dark scheme switches automatically. The old single-hex color setting is gone.
 - **Configurable reason hint prefix (NL-F20)**: The hint can carry a leading prefix chosen under `Settings → Editor → Nullify → Folding Behavior` — none (default), `*`, `•`, `§`, your own symbol, or Nullify's gutter icon (`Nullable.svg` for nullable, `NotNull.svg` for not-null) — with exactly one space separating it from the sentence.
 - **Reason hint font size is adjustable (NL-F20)**: The hint renders one pixel smaller than code by default; a relative font-size offset under `Settings → Editor → Nullify → Folding Behavior` lets you make it smaller or larger than the editor font.
+- **Searchable HTML tracking site (NL-F21)**: The public tracking repository now serves a generated HTML site instead of raw Markdown — every issue (NL-I) and feature proposal (NL-F) has its own page, and a search box on the landing page finds any document by number (`16`, `I16`, `NL-I16`, `F9`) or by title. The published site lives under `tracking/`, and the README's demo gifs are served from `assets/`.
 
 ### Fixed
 
@@ -39,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **The auto-collapse setting is renamed and clarified**: The checkbox under `Settings → Editor → Nullify → Folding Behavior` previously read "Auto-collapse Nullify folds in the current editor after project analysis completes"; it is now simply **"Auto-collapse"**, with a description making clear that Nullify folds are collapsed as soon as they are created — after the project finishes its analysis and live while you type (e.g. `final @NotNull var foo = ""` folds to `final String! foo = ""` as soon as the initializer is written).
 - **The reason hint color setting moved to the Editor Color Scheme**: The custom color checkbox under `Settings → Editor → Nullify → Folding Behavior` is replaced by a "Reason hint" attribute under `Settings → Editor → Color Scheme → Nullify`, which themes the hint like any editor text and follows scheme switches automatically (NL-F20).
+- **Reason-hint pickers are now single controls (NL-F20)**: The reason-hint prefix and the max-inline-length settings each used to be a combo box plus a separate "custom value" field that only became enabled when `Custom...` was selected. Each pair is now one component: choosing `Custom...` turns the box itself into an editable field, so the value is typed in place.
 
 ## [0.9.10] - 2026-08-03
 
