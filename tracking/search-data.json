@@ -504,6 +504,24 @@
     "content": "When a long reason is shown as a multi-line hint, there is no fold arrow in the editor gutter next to it, so the only way to collapse it back is to click the text — users expect the standard IDE fold arrow beside the hint. The hint renderer never provides a gutter icon renderer, so the platform shows nothing in the gutter for the block inlay."
   },
   {
+    "id": "NL-I43",
+    "kind": "issue",
+    "title": "Reason Hint Does Not Appear After the Comment-Maybe-Reason Migration (NL-F21)",
+    "status": "Open",
+    "url": "issues/NL-I43.html",
+    "statusLabel": "Open",
+    "content": "After applying Migrate comment to annotation reason (NL-F21) to a collapsed declaration — e.g. // Foo\nfinal @NotNull var carryIDBox = context.carryID; becomes final @NotNull(\"Foo\") var carryIDBox = context.carryID; — the reason hint that NL-F16 renders above collapsed Nullify folds does not appear. The hint only shows after a manual round-trip: clicking the folded text expands the fold, the fold collapses again on its own a moment later, and only then does the hint appear; a second click expands it for good. The expected behavior is that the hint shows immediately after the migration, without any manual interaction. Migrating the comment changes the text inside the folded region, and the IDE rebuilds that fold region in an expanded state, which hides the hint — the hint only renders above collapsed folds. A first attempt to force the fold back collapsed programmatically was reverted: it did not make the hint appear immediately and introduced a \"expand → instantly re-collapse\" quirk. Unresolved. The automatic re-collapse experiment (NL-F21 delivery) has been reverted; the migration itself works, but the reason hint still requires the manual expand/re-collapse round-trip before it appears."
+  },
+  {
+    "id": "NL-I44",
+    "kind": "issue",
+    "title": "Reason Hint Extraction Resolves Annotations on the EDT — \"Slow operations are prohibited on EDT\" Errors",
+    "status": "Resolved(`1.0.0`)",
+    "url": "issues/NL-I44.html",
+    "statusLabel": "Resolved: on version 1.0.0",
+    "content": "In a real project, the IDE log gets flooded with Slow operations are prohibited on EDT errors (plus a Should be called at least in the state COMPONENTS_LOADED cascade) while Nullify reason hints (NL-F16) are shown above collapsed folds. The violations point into Nullify's hint code — the fold's reason is being resolved with index access on the UI thread. Every collapsed fold re-reads its annotation's reason on the UI thread after each folding pass, and reading an annotation's fully qualified name forces the IDE to resolve the annotation class through the project index — which the platform forbids on the UI thread. The hint code assumed this resolution was index-free, but annotation names are class-name references and cannot be qualified without resolving them. The reason extraction behind a collapsed fold's hint now runs on a background thread, so writing or folding nullability annotations no longer performs index resolution on the UI thread — the Slow operations are prohibited on EDT errors are gone."
+  },
+  {
     "id": "NL-F1",
     "kind": "feature",
     "title": "Navigation Support",
@@ -687,9 +705,9 @@
     "id": "NL-F21",
     "kind": "feature",
     "title": "CommentMaybeReasonInspection — Migrate Adjacent Comments into Nullability Annotation Reasons",
-    "status": "Open",
+    "status": "Completed(`1.0.0`)",
     "url": "features/NL-F21.html",
-    "statusLabel": "Open",
+    "statusLabel": "Completed: on version 1.0.0",
     "content": "Developers often explain why a value is nullable or non-null in a free-floating comment next to the annotation: // Returns null when no entry matches\n@Nullable\nString find(String key); Such comments are easy to overlook — they sit outside the type system, are lost once the declaration is folded, and duplicate what the annotation itself was designed to carry. Annotations declaring a String value() member (e.g. JetBrains @NotNull/@Nullable) already provide a first-class home for exactly this sentence: @Nullable(\"Returns null when no entry matches\"). Once migrated, the reason stays attached to the type, survives folding, and is rendered by Nullify's reason hints (NL-F16) above collapsed folds. CommentMaybeReasonInspection detects a nullability annotation that: has a comment directly above it (same physical adjacency, no blank line or other element in between) or trailing on its right on the same line;belongs to an annotation type that supports a reason field (declares a String value() member);currently carries no valid reason value.and offers a quick fix that migrates the comment's content into the annotation's value and removes the comment. The inspection is quick-fix only by default — it never highlights anything in the editor; the migration simply appears on Alt+Enter. When a nullability annotation that supports a reason field (e.g. JetBrains @NotNull/@Nullable) sits directly next to a comment — on the line above it or trailing on its right — and carries no reason of its own, Nullify offers a quick fix on Alt+Enter that moves the comment's text into the annotation as its value reason and removes the comment: // Returns null when no entry matches\n@Nullable\nString find(String key); becomes @Nullable(\"Returns null when no entry matches\")\nString find(String key); The inspection never highlights anything by itself — it is purely a quick-fix provider. Javadoc comments and annotations without a reason field are left untouched."
   }
 ]

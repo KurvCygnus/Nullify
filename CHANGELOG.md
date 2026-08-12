@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Configurable reason hint prefix (NL-F20)**: The hint can carry a leading prefix chosen under `Settings → Editor → Nullify → Folding Behavior` — none (default), `*`, `•`, `§`, your own symbol, or Nullify's gutter icon (`Nullable.svg` for nullable, `NotNull.svg` for not-null) — with exactly one space separating it from the sentence.
 - **Reason hint font size is adjustable (NL-F20)**: The hint renders one pixel smaller than code by default; a relative font-size offset under `Settings → Editor → Nullify → Folding Behavior` lets you make it smaller or larger than the editor font.
 - **Searchable HTML tracking site (NL-F21)**: The public tracking repository now serves a generated HTML site instead of raw Markdown — every issue (NL-I) and feature proposal (NL-F) has its own page, and a search box on the landing page finds any document by number (`16`, `I16`, `NL-I16`, `F9`) or by title. The published site lives under `tracking/`, and the README's demo gifs are served from `assets/`.
+- **Migrate adjacent comments into nullability annotation reasons (NL-F21)**: When a nullability annotation that supports a reason field (e.g. JetBrains `@Nullable`/`@NotNull`) sits directly next to a comment — on the line above it or trailing on its right — and carries no reason of its own, `Alt+Enter` on the annotation offers **Migrate comment to annotation reason**: the comment's text moves into the annotation as its reason (e.g. `@Nullable("Returns null when no entry matches")`) and the comment is removed. The feature never highlights anything by itself — Javadoc comments and annotations without a reason field are left untouched.
 
 ### Fixed
 
@@ -35,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Reason hints honor bold/italic, background, and effects from the color scheme (NL-I42.1)**: The "Reason hint" attribute under `Settings → Editor → Color Scheme → Nullify` previously applied only its foreground in the editor; now strikethrough, underline/wave effects, background, and bold/italic all render exactly as the color page previews them. The hint defaults to italic.
 - **Long reasons no longer overflow the screen (NL-I42.2)**: Expanded hints now wrap within the editor's visible width instead of running off the right edge, and the collapsed one-liner always fits. The default max inline length is raised to 80 and scaled to your editor's font size, so ordinary reasons stay readable instead of collapsing early.
 - **Long hints show the IDE fold arrow in the gutter (NL-I42.3)**: A long, multi-line reason hint now has the standard fold arrow beside it; clicking it collapses/expands the hint just like the built-in fold arrows.
+- **Reason hints no longer trigger `Slow operations are prohibited on EDT` errors (NL-I44)**: The reason extraction behind a collapsed fold's hint now runs on a background thread, so writing or folding nullability annotations no longer performs index resolution on the UI thread.
 
 ### Changed
 
