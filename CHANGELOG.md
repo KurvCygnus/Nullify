@@ -37,6 +37,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Long reasons no longer overflow the screen (NL-I42.2)**: Expanded hints now wrap within the editor's visible width instead of running off the right edge, and the collapsed one-liner always fits. The default max inline length is raised to 80 and scaled to your editor's font size, so ordinary reasons stay readable instead of collapsing early.
 - **Long hints show the IDE fold arrow in the gutter (NL-I42.3)**: A long, multi-line reason hint now has the standard fold arrow beside it; clicking it collapses/expands the hint just like the built-in fold arrows.
 - **Reason hints no longer trigger `Slow operations are prohibited on EDT` errors (NL-I44)**: The reason extraction behind a collapsed fold's hint now runs on a background thread, so writing or folding nullability annotations no longer performs index resolution on the UI thread.
+- **Reason hints now appear right after migrating a comment into an annotation reason (NL-I43)**: Applying **Migrate comment to annotation reason** to a collapsed declaration no longer requires a manual expand/re-collapse round-trip — the hint appears as soon as the IDE finishes recomputing the fold, and expanding the fold manually is never undone by the auto-collapse.
+- **Trailing comments on the declaration line migrate too (NL-I45)**: **Migrate comment to annotation reason** now also fires when the comment closes the whole declaration line — e.g. `final @NotNull var foo = "";// Assigned with a literal value.` — instead of only comments directly next to the annotation or on the line above. The intention works from the annotation and from the trailing comment itself.
 
 ### Changed
 

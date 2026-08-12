@@ -158,6 +158,41 @@ mark
     flex: none;
 }
 
+/* ============================================================ */
+/* Inline DSL icons ([!code])                                   */
+/* ============================================================ */
+
+.inline-icon
+{
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.125em;
+    display: inline-block;
+    flex: none;
+    color: inherit;
+}
+
+.inline-icon.icon-bug { color: oklch(0.62 0.2 25); }
+.inline-icon.icon-lightbulb { color: oklch(0.78 0.14 85); }
+.inline-icon.icon-search { color: oklch(0.6 0.15 255); }
+.inline-icon.icon-wrench { color: oklch(0.68 0.17 45); }
+.inline-icon.icon-hammer { color: oklch(0.6 0.15 50); }
+.inline-icon.icon-clock { color: oklch(0.62 0.16 300); }
+.inline-icon.icon-check { color: oklch(0.66 0.17 150); }
+.inline-icon.icon-x { color: oklch(0.6 0.2 25); }
+.inline-icon.icon-alert { color: oklch(0.72 0.16 75); }
+.inline-icon.icon-info { color: oklch(0.6 0.13 250); }
+.inline-icon.icon-flame { color: oklch(0.68 0.19 35); }
+.inline-icon.icon-rocket { color: oklch(0.66 0.18 40); }
+.inline-icon.icon-lock { color: oklch(0.55 0.05 260); }
+.inline-icon.icon-target { color: oklch(0.62 0.15 160); }
+.inline-icon.icon-map { color: oklch(0.65 0.12 190); }
+.inline-icon.icon-sparkles { color: oklch(0.8 0.13 95); }
+.inline-icon.icon-layers { color: oklch(0.62 0.15 285); }
+.inline-icon.icon-package { color: oklch(0.6 0.1 60); }
+.inline-icon.icon-ban { color: oklch(0.55 0.03 260); }
+.inline-icon.icon-arrow-right { color: oklch(0.55 0.03 260); }
+
 .status-open, .status-resolved, .status-completed
 {
     --status-color: oklch(0.55 0.15 150);
