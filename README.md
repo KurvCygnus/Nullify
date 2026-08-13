@@ -117,7 +117,7 @@ Folding should never cost you navigation. Ctrl+click any part of a folded placeh
 -->
 ![Inconsistent nullability inspection](assets/inspection.gif)
 
-Nullify ships the **Inconsistent Nullability Annotation** inspection: it spots duplicated or mixed-library nullability annotations (`@javax.Nonnull` vs `@org.jetbrains.annotations.NotNull`, `@NotNullByDefault` vs `@ParametersAreNonnullByDefault`, …) and offers one-click quick fixes — remove the duplicate, or align it with the file's / project's standard annotation.
+Nullify ships the **Inconsistent Nullability Annotation** inspection: it spots duplicated or mixed-library nullability annotations (`@javax.Nonnull` vs `@org.jetbrains.annotations.NotNull`, `@NotNullByDefault` vs `@ParametersAreNonnullByDefault`, …) and offers one-click quick fixes — remove the duplicate, or align it with the file's / project's standard annotation. An **Aggressive analysis** mode (on by default) keeps the whole file's warnings up to date as you type; switch to **Prudence mode** to re-analyze only the edited region when large files need snappier feedback.
 
 ### 6. Your rules, your defaults
 
@@ -134,8 +134,9 @@ Under **Settings → Editor → Nullify** you control everything:
 - Register your own `@Nullable` / `@NotNull` annotations — Nullify understands them just like the built-ins.
 - Configure class/package/project-level nullability defaults (`@NotNullByDefault`, `@ParametersAreNonnullByDefault`, …).
 - Built-in support for the popular libraries: JetBrains, JSpecify, Spring, AndroidX, Eclipse JDT, Checker Framework, FindBugs/SpotBugs, and more.
-- FQCN inputs with code completion, and an interface that speaks your IDE's language.
-- Show or hide the nullability reason hint above collapsed folds, and give it a custom color.
+- Choose the symbol for unbounded wildcards — `?` or `*`.
+- FQCN inputs with code completion, and an interface that speaks your IDE's language (English, Simplified Chinese, Japanese, French, and German).
+- Show or hide the nullability reason hint above collapsed folds — its look (including color) is themed through the editor color scheme.
 
 ### 7. Reasons that stay with you
 
@@ -147,7 +148,41 @@ Under **Settings → Editor → Nullify** you control everything:
 -->
 ![Nullity reason hints](assets/reason-hint.gif)
 
-When Nullify collapses `@Nullable("returns null when no entry matches")` into `String?`, the reason doesn't vanish — it reappears as a hint right above the folded code: *"This is nullable because "returns null when no entry matches"."* It appears only while the fold is collapsed, resolves constant reasons too (`@Nullable(REASON)`), follows your editor's colors, and can be tuned — or switched off — under `Settings → Editor → Nullify`.
+When Nullify collapses `@Nullable("returns null when no entry matches")` into `String?`, the reason doesn't vanish — it reappears as a hint right above the folded code: *"This is nullable because "returns null when no entry matches"."* It appears only while the fold is collapsed, resolves constant reasons too (`@Nullable(REASON)`), and follows your editor's colors.
+
+Long reasons stay out of your way: a hint that exceeds the inline length collapses to a truncated one-liner — *"This is nullable because "returns null when no entry mat…"."* — and expands to the full multi-line text when you click the hint, click the fold arrow beside it, or press the expand/collapse shortcut. The threshold is **adaptive** by default, scaling with your editor's font size.
+
+The hint is a first-class editor citizen: its **Reason hint** attribute under `Settings → Editor → Color Scheme → Nullify` themes foreground, background, and effects like any editor text, its font size can be nudged relative to the code font, and a leading prefix — none, `*`, `•`, `§`, your own symbol, or Nullify's gutter icon — sets it apart at a glance. Everything down to the whole feature is tunable under `Settings → Editor → Nullify → Folding Behavior`.
+
+### 8. The compact view, automatically
+
+<!--
+  GIF: assets/auto-collapse.gif
+  Record: a file with several @Nullable/@NotNull annotations; right after the
+  project analysis completes, the Nullify folds collapse by themselves into
+  String? / Foo! markers; unfold one and expand it back; then toggle the
+  "Auto-collapse" setting off to show the behavior can be disabled.
+-->
+![Auto-collapse](assets/auto-collapse.gif)
+
+Nullify folds collapse by themselves the moment the project finishes its analysis — and keep folding live while you type (`final @NotNull var foo = ""` becomes `final String! foo = ""` as soon as the initializer is written). Folds you expanded manually stay expanded, and the whole behavior can be switched off under `Settings → Editor → Nullify → Folding Behavior`.
+
+### 9. Comments become reasons
+
+<!--
+  GIF: assets/migrate-comment.gif
+  Record: a `@Nullable` annotation with no reason sitting next to a comment on
+  the line above; Alt+Enter shows "Migrate comment to annotation reason";
+  applying it moves the comment's text into `@Nullable("...")` and removes the
+  comment.
+-->
+![Comment-to-reason migration](assets/migrate-comment.gif)
+
+Documenting *why* something can be null is good practice — retyping it into the annotation is not. When a `@Nullable`/`@NotNull` that supports a reason sits next to a comment (on the line above, trailing the annotation, or closing the declaration line), `Alt+Enter` offers **Migrate comment to annotation reason**: the comment's text becomes the annotation's reason — `@Nullable("Returns null when no entry matches")` — and the comment is removed. The intention never highlights anything by itself, and Javadoc or reason-less annotations are left untouched.
+
+### 10. See every trick in one place
+
+The repository ships four runnable demo files — `NullifyDemo` (the tour-de-force with its own `main`) plus `VarInference`, `ArrayVararg`, and `WildcardsGenerics` — each showcasing a slice of the folding: nullity markers, preserved non-nullity annotations, annotated `var` inference, arrays & varargs, wildcards, qualified types, and intersection casts. Open them in a dev instance of the plugin to watch every capability at once.
 
 ---
 
