@@ -64,68 +64,36 @@ Why you'll love it:
 
 ### 1. Nullity at a glance — `Foo?` / `Bar!`
 
-<!--
-  GIF: assets/fold-nullity.gif
-  Record: fold `@Nullable`/`@NotNull` in a mix of fields, parameters, and return
-  types; unfold one placeholder to prove the original annotation is still there.
--->
 ![Nullity marker folding](assets/fold-nullity.gif)
 
 `@Nullable Foo` → `Foo?`, `@NotNull Bar` → `Bar!`. Nullify understands annotations wherever Java puts them — on the type, the declaration, the class, or the whole package — and gets every position right.
 
 ### 2. Variance that reads itself — `out` / `in`
 
-<!--
-  GIF: assets/fold-wildcards.gif
-  Record: a generic signature like `List<? extends Foo>` folding to
-  `List<out Foo>` and `Consumer<? super Bar>` to `Consumer<in Bar>`.
--->
 ![Wildcard variance folding](assets/fold-wildcards.gif)
 
 `? extends Foo` → `out Foo`, `? super Bar` → `in Bar` — the same variance words Kotlin uses, so generic signatures finally read the way they *mean*.
 
-### 3. Arrays & varargs, normalized — `Array!<String?>` / `Vararg?<Object>`
+### 3. Arrays & varargs, normalized — `Array?<String!>` / `Vararg?<Object?>`
 
-<!--
-  GIF: assets/fold-arrays.gif
-  Record: `@NotNull String[]` folding to `Array<String!>` and a vararg parameter
-  folding to `Vararg?<...>`, including multidimensional annotation placement.
--->
 ![Array and vararg folding](assets/fold-arrays.gif)
 
-Arrays and varargs fold into clean generic syntax — `Array<String!>`, `Vararg?<Object>` — with every dimension's annotation placed exactly where it belongs. Nothing is flattened, nothing is misattributed.
+Arrays and varargs fold into clean generic syntax — `Array?<String!>`, `Vararg?<Object?>` — with every dimension's annotation placed exactly where it belongs. Nothing is flattened, nothing is misattributed.
 
 ### 4. Navigation never breaks
 
-<!--
-  GIF: assets/navigation.gif
-  Record: Ctrl+click (or Ctrl+B) on `Foo?` jumps to the Foo class, on the `?`
-  marker jumps to the annotation declaration, and on a preserved annotation
-  value literal (e.g. Spring's @Value("${app.name}")) jumps to the config key.
--->
 ![Folded placeholder navigation](assets/navigation.gif)
 
 Folding should never cost you navigation. Ctrl+click any part of a folded placeholder — the type, a type argument, the `?`/`!` marker, even a preserved annotation's value literal — and you land exactly where the IDE would have taken you before folding.
 
 ### 5. Catch annotation chaos
 
-<!--
-  GIF: assets/inspection.gif
-  Record: two conflicting nullability annotations on one element being flagged,
-  with the quick fix replacing the non-conforming one with the file/project
-  default.
--->
 ![Inconsistent nullability inspection](assets/inspection.gif)
 
 Nullify ships the **Inconsistent Nullability Annotation** inspection: it spots duplicated or mixed-library nullability annotations (`@javax.Nonnull` vs `@org.jetbrains.annotations.NotNull`, `@NotNullByDefault` vs `@ParametersAreNonnullByDefault`, …) and offers one-click quick fixes — remove the duplicate, or align it with the file's / project's standard annotation. An **Aggressive analysis** mode (on by default) keeps the whole file's warnings up to date as you type; switch to **Prudence mode** to re-analyze only the edited region when large files need snappier feedback.
 
 ### 6. Your rules, your defaults
 
-<!--
-  GIF: assets/settings.gif
-  Record: opening Settings → Editor → Nullify and toggling options / registering
-  a custom annotation FQCN.
--->
 ![Nullify settings](assets/settings.gif)
 
 Under **Settings → Editor → Nullify** you control everything:
@@ -140,12 +108,6 @@ Under **Settings → Editor → Nullify** you control everything:
 
 ### 7. Reasons that stay with you
 
-<!--
-  GIF: assets/reason-hint.gif
-  Record: `@Nullable("returns null when no entry matches")` folding to `String?`,
-  with the hint "This is nullable because "returns null when no entry matches"."
-  appearing above the collapsed fold; expanding the fold makes it disappear.
--->
 ![Nullity reason hints](assets/reason-hint.gif)
 
 When Nullify collapses `@Nullable("returns null when no entry matches")` into `String?`, the reason doesn't vanish — it reappears as a hint right above the folded code: *"This is nullable because "returns null when no entry matches"."* It appears only while the fold is collapsed, resolves constant reasons too (`@Nullable(REASON)`), and follows your editor's colors.
@@ -156,26 +118,10 @@ The hint is a first-class editor citizen: its **Reason hint** attribute under `S
 
 ### 8. The compact view, automatically
 
-<!--
-  GIF: assets/auto-collapse.gif
-  Record: a file with several @Nullable/@NotNull annotations; right after the
-  project analysis completes, the Nullify folds collapse by themselves into
-  String? / Foo! markers; unfold one and expand it back; then toggle the
-  "Auto-collapse" setting off to show the behavior can be disabled.
--->
-![Auto-collapse](assets/auto-collapse.gif)
-
-Nullify folds collapse by themselves the moment the project finishes its analysis — and keep folding live while you type (`final @NotNull var foo = ""` becomes `final String! foo = ""` as soon as the initializer is written). Folds you expanded manually stay expanded, and the whole behavior can be switched off under `Settings → Editor → Nullify → Folding Behavior`.
+As you could see from above, Nullify folds collapse by themselves the moment the project finishes its analysis — and keep folding live while you type (`final @NotNull var foo = ""` becomes `final String! foo = ""` as soon as the initializer is written). Folds you expanded manually stay expanded, and the whole behavior can be switched off under `Settings → Editor → Nullify → Folding Behavior`.
 
 ### 9. Comments become reasons
 
-<!--
-  GIF: assets/migrate-comment.gif
-  Record: a `@Nullable` annotation with no reason sitting next to a comment on
-  the line above; Alt+Enter shows "Migrate comment to annotation reason";
-  applying it moves the comment's text into `@Nullable("...")` and removes the
-  comment.
--->
 ![Comment-to-reason migration](assets/migrate-comment.gif)
 
 Documenting *why* something can be null is good practice — retyping it into the annotation is not. When a `@Nullable`/`@NotNull` that supports a reason sits next to a comment (on the line above, trailing the annotation, or closing the declaration line), `Alt+Enter` offers **Migrate comment to annotation reason**: the comment's text becomes the annotation's reason — `@Nullable("Returns null when no entry matches")` — and the comment is removed. The intention never highlights anything by itself, and Javadoc or reason-less annotations are left untouched.
@@ -245,10 +191,10 @@ After installation, restart your IDE and open any Java file. Folding is on by de
 
 Found a bug? Want a feature? Nullify tracks everything transparently:
 
-- **Issues & Feature Proposals** — [Public Tracking Repository](<PUBLIC_TRACKING_URL>)
+- **Issues & Feature Proposals** — [Tracking Document Site](<PUBLIC_TRACKING_URL>) | [Report Site](<PLACE_HOLDER>)
 - **Changelog** — [CHANGELOG.md](CHANGELOG.md)
 - **Rate & Review** — your review on the Marketplace makes a real difference
-- **Source & Contact** — [GitHub](<GITHUB_URL>) · [Kurv Cygnus](https://github.com/KurvCygnus)
+- **Contact** — [Kurv Cygnus](https://github.com/KurvCygnus)
 
 ---
 
