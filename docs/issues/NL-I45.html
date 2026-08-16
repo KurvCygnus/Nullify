@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>NL-I45: Trailing Comment on the Declaration Line Not Recognized by the Comment-Migration Intention (NL-F21)</title>
+        <link rel="stylesheet" href="../style.css">
+        <script>(() => { try { let t = localStorage.getItem('nullify-theme'); if(!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; document.documentElement.dataset.theme = t } catch(e) { /* noop */ } })()</script>
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="header-inner">
+                <a class="home-link" href="../index.html">Nullify Tracking</a>
+                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon toggle-icon-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon toggle-icon-moon"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+                </button>
+            </div>
+        </header>
+        <main id="top">
+            <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Index</a> ‹ <a href="../index.html#issues">Issues</a> ‹ <a href="#top">NL-I45</a></nav>
+            <h1 id="nl-i45-trailing-comment-on-the-declaration-line-not-recognized-by-the-comment-migration-intention-nl-f21">NL-I45: Trailing Comment on the Declaration Line Not Recognized by the Comment-Migration Intention (NL-F21)</h1>
+            <div class="entity-header"><span class="status status-resolved"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="status-icon"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>Resolved</span><span class="status-arg">on version <code>1.0.0</code></span></div>
+            <p class="entity-meta"><span>Found on version <code>1.0.0</code> by <code>Kurv Cygnus</code></span></p>
+            <h2 id="nl-i45-description">Description</h2>
+            <p><span class="inline-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-icon icon-BUG"><path d="M12 20v-9"/><path d="M14 7a4 4 0 0 1 4 4v3a6 6 0 0 1-12 0v-3a4 4 0 0 1 4-4z"/><path d="M14.12 3.88 16 2"/><path d="M21 21a4 4 0 0 0-3.81-4"/><path d="M21 5a4 4 0 0 1-3.55 3.97"/><path d="M22 13h-4"/><path d="M3 21a4 4 0 0 1 3.81-4"/><path d="M3 5a4 4 0 0 0 3.55 3.97"/><path d="M6 13H2"/><path d="m8 2 1.88 1.88"/><path d="M9 7.13V6a3 3 0 1 1 6 0v1.13"/></svg></span> <strong>Migrate comment to annotation reason</strong> does not fire for a trailing comment that closes the whole declaration line rather than sitting directly right of the annotation. When the comment comes after the declaration&#39;s last token — e.g.</p>
+            <pre class="lang-java"><code>final @NotNull var foo = &quot;&quot;;// Assigned with a literal value.</code></pre>
+            <p>— the intention is not offered at all. The migration only recognizes comments directly adjacent to the annotation (<code>@NotNull // reason</code>) or on the line above it. The expected behavior is that a comment trailing the declaration on the same physical line migrates into the annotation&#39;s reason just like any other adjacent comment.</p>
+            <h2 id="nl-i45-root-cause">Root Cause</h2>
+            <p><span class="inline-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-icon icon-SEARCH"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg></span> The intention only looks for comments immediately next to the annotation; a comment at the end of the declaration line sits after the type and initializer, so the adjacency check never reaches it.</p>
+            <h2 id="nl-i45-solution-result">Solution Result</h2>
+            <p><span class="inline-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-icon icon-CHECK"><path d="M20 6 9 17l-5-5"/></svg></span> A comment that trails a single-line declaration — fields, local variables and methods alike — is now recognized: the intention fires both at the annotation and on the trailing comment itself, and the comment migrates into the annotation&#39;s reason.</p>
+            <a class="back-to-top" href="#top">Back to top</a>
+        </main>
+        <footer class="site-footer">
+            <p class="feedback-line">Found any issue, or got some ideas? Feed it back at <a class="feedback-link" href="https://github.com/KurvCygnus/Nullify/issues/new">here</a>.</p>
+            <div class="footer-row"><a href="../index.html">Back to index</a><span class="footer-meta">Generated 2026-08-16</span></div>
+        </footer>
+        <script type="module" src="../search.js"></script>
+    </body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>NL-I40: CJK Rendering of Reason Hints</title>
+        <link rel="stylesheet" href="../style.css">
+        <script>(() => { try { let t = localStorage.getItem('nullify-theme'); if(!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; document.documentElement.dataset.theme = t } catch(e) { /* noop */ } })()</script>
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="header-inner">
+                <a class="home-link" href="../index.html">Nullify Tracking</a>
+                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon toggle-icon-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon toggle-icon-moon"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+                </button>
+            </div>
+        </header>
+        <main id="top">
+            <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Index</a> ‹ <a href="../index.html#issues">Issues</a> ‹ <a href="#top">NL-I40</a></nav>
+            <h1 id="nl-i40-cjk-rendering-of-reason-hints">NL-I40: CJK Rendering of Reason Hints</h1>
+            <div class="intro callout">
+                <p>The nullability reason hint shown above a collapsed fold had two problems when the reason contained CJK characters. This parent issue tracks them — each sub-issue below covers one concrete problem.</p>
+            </div>
+            <nav class="toc" aria-label="Sub-issues">
+                <h2>Contents</h2>
+                <ul>
+                    <li class="toc-item"><a class="toc-id" href="#nl-i401-cjk-reason-hint-crashes-with-nosuchelementexception-when-no-configured-font-can-display-the-first-character">NL-I40.1</a><a class="toc-title" href="#nl-i401-cjk-reason-hint-crashes-with-nosuchelementexception-when-no-configured-font-can-display-the-first-character">CJK Reason Hint Crashes With <code>NoSuchElementException</code> When No Configured Font Can Display the First Character</a></li>
+                    <li class="toc-item"><a class="toc-id" href="#nl-i402-reason-hint-renders-cjk-text-as-tofu-blocks">NL-I40.2</a><a class="toc-title" href="#nl-i402-reason-hint-renders-cjk-text-as-tofu-blocks">Reason Hint Renders CJK Text as Tofu Blocks</a></li>
+                </ul>
+            </nav>
+            <section class="entity">
+                <h2 id="nl-i401-cjk-reason-hint-crashes-with-nosuchelementexception-when-no-configured-font-can-display-the-first-character">NL-I40.1: CJK Reason Hint Crashes With <code>NoSuchElementException</code> When No Configured Font Can Display the First Character</h2>
+                <div class="entity-header"><span class="status status-resolved"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="status-icon"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>Resolved</span><span class="status-arg">on version <code>1.0.0</code></span></div>
+                <h3 id="nl-i401-description">Description</h3>
+                <p>In a Chinese-locale IDE, collapsing a fold whose reason begins with a CJK character made the hint disappear and the IDE log the error <code>java.util.NoSuchElementException: Collection contains no element matching the predicate</code> from <code>ReasonHintInlayRenderer</code>.</p>
+                <h3 id="nl-i401-root-cause">Root Cause</h3>
+                <p>The fallback renderer selected the first font in the chain that can display the sentence&#39;s first character with <code>fonts.first { it.canDisplay(text[0]) }</code>. When the sentence starts with a CJK glyph that neither the editor&#39;s base font nor <code>FontPreferences.getEffectiveFontFamilies</code> can display — the scheme does not always carry a CJK font — the predicate matches nothing and <code>.first</code> throws.</p>
+                <h3 id="nl-i401-solution-result">Solution Result</h3>
+                <p>The hint now always appears: the font selection falls back gracefully when no configured font can display a character, and the JDK&#39;s logical <code>Monospaced</code> font is appended as a guaranteed fallback — it carries the platform&#39;s composite font chain, so CJK reasons render real glyphs even when the scheme has no CJK font of its own.</p>
+                <nav class="sibling-nav"><a class="nav-next" href="#nl-i402-reason-hint-renders-cjk-text-as-tofu-blocks">NL-I40.2 ›</a></nav>
+            </section>
+            <section class="entity">
+                <h2 id="nl-i402-reason-hint-renders-cjk-text-as-tofu-blocks">NL-I40.2: Reason Hint Renders CJK Text as Tofu Blocks</h2>
+                <div class="entity-header"><span class="status status-resolved"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="status-icon"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>Resolved</span><span class="status-arg">on version <code>1.0.0</code></span></div>
+                <h3 id="nl-i402-description">Description</h3>
+                <p>When the nullability reason contains Chinese (or other CJK) characters, the hint above the collapsed fold displays them as tofu/placeholder blocks (<code>□□□</code>) instead of the actual glyphs. Latin text renders fine.</p>
+                <h3 id="nl-i402-root-cause">Root Cause</h3>
+                <p>The hint renderer paints text with a raw AWT <code>Font</code> resolved from the editor color scheme, which does not carry the IDE&#39;s CJK font-fallback chain. The IDE normally renders mixed-script editor text through its own fallback-aware text layout; bypassing that with <code>Graphics.drawString</code> loses the CJK fallback font, so unsupported glyphs come out as boxes.</p>
+                <h3 id="nl-i402-solution-result">Solution Result</h3>
+                <p>Chinese (and other CJK) characters in a nullability reason now render as real glyphs instead of <code>□□□</code> tofu blocks. Both the measured width and the painted text go through the editor&#39;s font-fallback chain, so mixed-script reasons look exactly as they would in the editor itself.</p>
+                <nav class="sibling-nav"><a class="nav-prev" href="#nl-i401-cjk-reason-hint-crashes-with-nosuchelementexception-when-no-configured-font-can-display-the-first-character">‹ NL-I40.1</a></nav>
+            </section>
+            <a class="back-to-top" href="#top">Back to top</a>
+        </main>
+        <footer class="site-footer">
+            <p class="feedback-line">Found any issue, or got some ideas? Feed it back at <a class="feedback-link" href="https://github.com/KurvCygnus/Nullify/issues/new">here</a>.</p>
+            <div class="footer-row"><a href="../index.html">Back to index</a><span class="footer-meta">Generated 2026-08-16</span></div>
+        </footer>
+        <script type="module" src="../search.js"></script>
+    </body>
+</html>

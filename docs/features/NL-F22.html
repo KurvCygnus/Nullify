@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>NL-F22: AppendNullabilityDocIntention — Nullability Javadoc Sentences for Undocumented Elements</title>
+        <link rel="stylesheet" href="../style.css">
+        <script>(() => { try { let t = localStorage.getItem('nullify-theme'); if(!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; document.documentElement.dataset.theme = t } catch(e) { /* noop */ } })()</script>
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="header-inner">
+                <a class="home-link" href="../index.html">Nullify Tracking</a>
+                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon toggle-icon-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon toggle-icon-moon"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+                </button>
+            </div>
+        </header>
+        <main id="top">
+            <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Index</a> ‹ <a href="../index.html#features">Features</a> ‹ <a href="#top">NL-F22</a></nav>
+            <h1 id="nl-f22-appendnullabilitydocintention--nullability-javadoc-sentences-for-undocumented-elements">NL-F22: AppendNullabilityDocIntention — Nullability Javadoc Sentences for Undocumented Elements</h1>
+            <div class="entity-header"><span class="status status-completed"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="status-icon"><path d="M18 6 7 17l-5-5"/><path d="m22 10-7.5 7.5L13 16"/></svg>Completed</span><span class="status-arg">on version <code>1.0.0</code></span></div>
+            <p class="entity-meta"><span>Suggested on version <code>1.0.0</code> by <code>Kurv Cygnus</code></span></p>
+            <h2 id="nl-f22-description">Description</h2>
+            <p><span class="inline-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-icon icon-LIGHTBULB"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/></svg></span> A nullability annotation (<code>@Nullable</code>, <code>@NotNull</code>, …) tells the compiler and the linter how a value behaves, but the people reading the code often learn it from the Javadoc instead: <code>@param key a String which is nullable because it is absent for anonymous users.</code> Writing that sentence by hand is tedious — the annotation already carries the nullability mark, so the sentence is almost fully derivable. Still, it is exactly the kind of documentation that readers expect and that code generators and IDEs surface.</p>
+            <p><code>AppendNullabilityDocIntention</code> closes the gap on <code>Alt+Enter</code>. It fires when <strong>both</strong> conditions hold:</p>
+            <ol>
+                <li>
+                    <p>the target element carries a registered nullability annotation (built-in or user-registered — custom annotation libraries participate);</p>
+                </li>
+                <li>
+                    <p>the element&#39;s Javadoc does not document it yet — a method parameter without its <code>@param</code> tag, a return type without <code>@return</code>, a thrown type without <code>@throws</code>, a type parameter without its <code>@param &lt;T&gt;</code> tag, or a field/class without any Javadoc comment at all.</p>
+                </li>
+            </ol>
+            <p>The generated sentence follows a <strong>kind-adaptive template</strong> — it is never a fixed <code>@param …</code> block, because the intention serves every Javadoc-able element:</p>
+            <ul>
+                <li>
+                    <p>Method parameter → <code>@param ${var_name}</code></p>
+                </li>
+                <li>
+                    <p>Method type parameter → <code>@param &lt;${type_param_name}&gt;</code></p>
+                </li>
+                <li>
+                    <p>Method return type → <code>@return</code></p>
+                </li>
+                <li>
+                    <p>Thrown exception type → <code>@throws ${exception_name}</code></p>
+                </li>
+                <li>
+                    <p>Field / class (prose, no tag) → <code>${element_name}</code></p>
+                </li>
+            </ul>
+            <p>The shared body is:</p>
+            <pre><code>${head} ${article} ${type_of_target} which is ${nullability_of_target}${select_start} because ${carpet_position}${select_end}.</code></pre>
+            <ul>
+                <li>
+                    <p><code>${article}</code> is resolved from the type name&#39;s initial sound (<code>a</code> vs <code>an</code> — <em>an Integer</em>, <em>a String</em>) — never a literal <code>a(an)</code>.</p>
+                </li>
+                <li>
+                    <p><code>${select_start}</code> and <code>${select_end}</code> are auxiliary markers describing the selection bounds, <strong>not</strong> inserted text. After generation, the region between them — the reason clause <code> because </code> — is selected, while the sentence&#39;s closing period stays outside it.</p>
+                </li>
+                <li>
+                    <p><code>${carpet_position}</code> marks where the caret lands, <strong>not</strong> inserted text: the caret sits right after <code>because </code>, at the selection&#39;s end.</p>
+                </li>
+            </ul>
+            <p>The selection is the point: a user who wants a reason simply types — the typed text replaces the selected clause, and the preserved period closes the sentence. A user who does not wants to be out in one keystroke: pressing <code>Backspace</code> deletes the whole <code> because </code> clause and leaves a complete sentence, e.g. <code>@param key a String which is nullable.</code>.</p>
+            <p>The sentence is always English by default; other languages require an explicit opt-in in a <strong>project-level</strong> setting (<code>Settings → Editor → Nullify</code>), offering <em>Always English</em> (default) | <em>Follow IDE language</em> | <em>Custom language</em>. Javadoc targets a global developer audience, so following the IDE language by default would add noise rather than value.</p>
+            <h2 id="nl-f22-solution">Solution</h2>
+            <p>When a nullability-annotated element&#39;s Javadoc does not document it yet, <code>Alt+Enter</code> offers <strong>Append nullability Javadoc</strong>: it appends (or creates) the Javadoc sentence</p>
+            <pre><code>@param key a String which is nullable because &lt;reason&gt;.</code></pre>
+            <p>following the kind-adaptive template — <code>@param</code>/<code>@return</code>/<code>@throws</code> for tag-based targets, a prose sentence for fields and classes, with the English article (<code>a</code>/<code>an</code>) chosen from the type&#39;s sound. The reason clause <code> because </code> is inserted <strong>selected</strong> — with the closing period left in place — and the caret right after <code>because </code>: type a reason to replace it in one stroke, or press <code>Backspace</code> to drop the clause entirely and keep a complete sentence (<code>@param key a String which is nullable.</code>).</p>
+            <p>The sentence is English by default; under <code>Settings → Editor → Nullify</code> a project-level option switches it to <em>Follow IDE language</em> or a <em>Custom language</em>.</p>
+            <a class="back-to-top" href="#top">Back to top</a>
+        </main>
+        <footer class="site-footer">
+            <p class="feedback-line">Found any issue, or got some ideas? Feed it back at <a class="feedback-link" href="https://github.com/KurvCygnus/Nullify/issues/new">here</a>.</p>
+            <div class="footer-row"><a href="../index.html">Back to index</a><span class="footer-meta">Generated 2026-08-16</span></div>
+        </footer>
+        <script type="module" src="../search.js"></script>
+    </body>
+</html>

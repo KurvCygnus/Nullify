@@ -72,7 +72,7 @@ Why you'll love it:
 
 ![Wildcard variance folding](assets/fold-wildcards.gif)
 
-`? extends Foo` → `out Foo`, `? super Bar` → `in Bar` — the same variance words Kotlin uses, so generic signatures finally read the way they *mean*.
+`? extends Foo` → `out Foo`, `? super @Nullable Bar` → `in Bar?` — the same variance words Kotlin uses, so generic signatures finally read the way they *mean*.
 
 ### 3. Arrays & varargs, normalized — `Array?<String!>` / `Vararg?<Object?>`
 
@@ -110,7 +110,7 @@ Under **Settings → Editor → Nullify** you control everything:
 
 ![Nullity reason hints](assets/reason-hint.gif)
 
-When Nullify collapses `@Nullable("returns null when no entry matches")` into `String?`, the reason doesn't vanish — it reappears as a hint right above the folded code: *"This is nullable because "returns null when no entry matches"."* It appears only while the fold is collapsed, resolves constant reasons too (`@Nullable(REASON)`), and follows your editor's colors.
+When Nullify collapses `@Nullable("some reason")` into `String?`, the reason doesn't vanish — it reappears as a hint right above the folded code: *"This is nullable because "some reason"."* It appears only while the fold is collapsed, resolves constant reasons too (`@Nullable(REASON)`), and follows your editor's colors.
 
 Long reasons stay out of your way: a hint that exceeds the inline length collapses to a truncated one-liner — *"This is nullable because "returns null when no entry mat…"."* — and expands to the full multi-line text when you click the hint, click the fold arrow beside it, or press the expand/collapse shortcut. The threshold is **adaptive** by default, scaling with your editor's font size.
 
@@ -191,7 +191,7 @@ After installation, restart your IDE and open any Java file. Folding is on by de
 
 Found a bug? Want a feature? Nullify tracks everything transparently:
 
-- **Issues & Feature Proposals** — [Tracking Document Site](<PUBLIC_TRACKING_URL>) | [Report Site](<PLACE_HOLDER>)
+- **Issues & Feature Proposals** — [Tracking Document Site](https://kurvcygnus.github.io/Nullify/) | [Report Site](https://github.com/KurvCygnus/Nullify/issues)
 - **Changelog** — [CHANGELOG.md](CHANGELOG.md)
 - **Rate & Review** — your review on the Marketplace makes a real difference
 - **Contact** — [Kurv Cygnus](https://github.com/KurvCygnus)

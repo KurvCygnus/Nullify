@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>NL-F19: Configurable Prefix for Nullability Reason Inline Hints</title>
+        <link rel="stylesheet" href="../style.css">
+        <script>(() => { try { let t = localStorage.getItem('nullify-theme'); if(!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; document.documentElement.dataset.theme = t } catch(e) { /* noop */ } })()</script>
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="header-inner">
+                <a class="home-link" href="../index.html">Nullify Tracking</a>
+                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon toggle-icon-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon toggle-icon-moon"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+                </button>
+            </div>
+        </header>
+        <main id="top">
+            <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Index</a> ‹ <a href="../index.html#features">Features</a> ‹ <a href="#top">NL-F19</a></nav>
+            <h1 id="nl-f19-configurable-prefix-for-nullability-reason-inline-hints">NL-F19: Configurable Prefix for Nullability Reason Inline Hints</h1>
+            <div class="entity-header"><span class="status status-ditched"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="status-icon"><circle cx="12" cy="12" r="10"/><path d="M4.929 4.929 19.07 19.071"/></svg>Ditched</span><span class="status-arg">because &quot;merged into NL-F20&quot;</span></div>
+            <p class="entity-meta"><span>Suggested on version <code>1.0.0</code> by <code>Kurv Cygnus</code></span></p>
+            <h2 id="nl-f19-description">Description</h2>
+            <p>The nullability reason hint (NL-F16) currently renders as a bare sentence — <code>This is nullable because &quot;returns null when no entry matches&quot;.</code> — with nothing to tie it to Nullify at a glance. This feature gives the <strong>final rendered text</strong> a configurable prefix: <strong>none</strong> (default), <code>*</code>, <code>•</code>, <code>§</code>, a user-typed custom symbol, or the Nullify <strong>Gutter icons</strong> (<code>Nullable.svg</code> / <code>NotNull.svg</code>), where the icon shown is chosen by the folded type&#39;s top-level nullability mark. Whenever a prefix is active, exactly one space separates it from the hint text so it never reads cramped.</p>
+            <h2 id="nl-f19-solution">Solution</h2>
+            <p>The nullability reason hint can now carry a leading prefix chosen under <code>Settings → Editor → Nullify → Folding Behavior</code>: none (default), <code>*</code>, <code>•</code>, <code>§</code>, your own symbol, or Nullify&#39;s Gutter icon — where the icon reflects the fold&#39;s nullability (<code>Nullable.svg</code> for nullable, <code>NotNull.svg</code> for not-null). As long as a prefix is set, exactly one space separates it from the hint text, and changes apply to every open editor immediately.</p>
+            <a class="back-to-top" href="#top">Back to top</a>
+        </main>
+        <footer class="site-footer">
+            <p class="feedback-line">Found any issue, or got some ideas? Feed it back at <a class="feedback-link" href="https://github.com/KurvCygnus/Nullify/issues/new">here</a>.</p>
+            <div class="footer-row"><a href="../index.html">Back to index</a><span class="footer-meta">Generated 2026-08-16</span></div>
+        </footer>
+        <script type="module" src="../search.js"></script>
+    </body>
+</html>
