@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>NL-I47: Modal Settings Mode Stacks Two Settings Dialogs When Clicking Welcome-Panel Section Titles</title>
+        <link rel="stylesheet" href="../style.css">
+        <script>(() => { try { let t = localStorage.getItem('nullify-theme'); if(!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; document.documentElement.dataset.theme = t } catch(e) { /* noop */ } })()</script>
+    </head>
+    <body>
+        <header class="site-header">
+            <div class="header-inner">
+                <a class="home-link" href="../index.html">Nullify Tracking</a>
+                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon toggle-icon-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon toggle-icon-moon"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg>
+                </button>
+            </div>
+        </header>
+        <main id="top">
+            <nav class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Index</a> ‹ <a href="../index.html#issues">Issues</a> ‹ <a href="#top">NL-I47</a></nav>
+            <h1 id="nl-i47-modal-settings-mode-stacks-two-settings-dialogs-when-clicking-welcome-panel-section-titles">NL-I47: Modal Settings Mode Stacks Two Settings Dialogs When Clicking Welcome-Panel Section Titles</h1>
+            <div class="entity-header"><span class="status status-open"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="status-icon"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1"/></svg>Open</span></div>
+            <p class="entity-meta"><span>Found on version <code>1.0.0</code> by <code>Kurv Cygnus</code></span></p>
+            <h2 id="nl-i47-description">Description</h2>
+            <p><span class="inline-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-icon icon-BUG"><path d="M12 20v-9"/><path d="M14 7a4 4 0 0 1 4 4v3a6 6 0 0 1-12 0v-3a4 4 0 0 1 4-4z"/><path d="M14.12 3.88 16 2"/><path d="M21 21a4 4 0 0 0-3.81-4"/><path d="M21 5a4 4 0 0 1-3.55 3.97"/><path d="M22 13h-4"/><path d="M3 21a4 4 0 0 1 3.81-4"/><path d="M3 5a4 4 0 0 0 3.55 3.97"/><path d="M6 13H2"/><path d="m8 2 1.88 1.88"/><path d="M9 7.13V6a3 3 0 1 1 6 0v1.13"/></svg></span> In the legacy modal Settings mode (when <code>ide.ui.non.modal.settings.window=false</code>), clicking one of the section-title links on the Nullify welcome panel opens a second Settings dialog stacked on top of the first one. The new dialog opens with the selected section already focused, but the original dialog remains visible underneath, requiring the user to close both windows.</p>
+            <h2 id="nl-i47-root-cause">Root Cause</h2>
+            <p><span class="inline-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-icon icon-SEARCH"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg></span> The Nullify welcome panel uses <code>ShowSettingsUtil.showSettingsDialog(project, ConfigurableClass)</code> to navigate from one Configurable to another. In non-modal mode (the default since IntelliJ 2024.1), this call reuses the existing settings window by routing through <code>SettingsVirtualFileHolder</code> and reselecting in-place. In legacy modal mode, the same call always opens a new modal dialog, because the platform&#39;s modal code path unconditionally creates a fresh dialog and does not consult any &quot;is a settings dialog already open&quot; state.</p>
+            <h2 id="nl-i47-solution-result">Solution Result</h2>
+            <p>(To be filled when handled.)</p>
+            <a class="back-to-top" href="#top">Back to top</a>
+        </main>
+        <footer class="site-footer">
+            <p class="feedback-line">Found any issue, or got some ideas? Feed it back at <a class="feedback-link" href="https://github.com/KurvCygnus/Nullify/issues/new">here</a>.</p>
+            <div class="footer-row"><a href="../index.html">Back to index</a><span class="footer-meta">Generated 2026-08-17</span></div>
+        </footer>
+        <script type="module" src="../search.js"></script>
+    </body>
+</html>

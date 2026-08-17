@@ -67,6 +67,8 @@
                     <li><strong>Reason-hint pickers are now single controls (NL-F20)</strong>: The reason-hint prefix and the max-inline-length settings each used to be a combo box plus a separate &quot;custom value&quot; field that only became enabled when <code>Custom...</code> was selected. Each pair is now one component: choosing <code>Custom...</code> turns the box itself into an editable field, so the value is typed in place.</li>
                     <li><strong>Tracking site redesign</strong>: modern dashboard with a public-facing intro, live search and filters, status icons, natural numeric ordering, dark/light themes, and fixed cross-document links and anchors.</li>
                     <li><strong>The reason-hint prefix now defaults to Nullify&#39;s gutter icon</strong>: Fresh installs draw the <code>Nullable.svg</code>/<code>NotNull.svg</code> gutter icon before the reason-hint sentence by default instead of no prefix. Existing installs keep their saved choice.</li>
+                    <li><strong>The Marketplace description stays in sync with the README</strong>: The plugin&#39;s <code>&lt;description&gt;</code>, shown on JetBrains Marketplace and in the IDE&#39;s Plugins dialog, is now generated from <code>README.md</code> at build time — the store listing always reflects the latest docs instead of a hand-maintained paragraph.</li>
+                    <li><strong>The plugin icon renders on the public README and tracking site</strong>: The tracking-site sync now publishes <code>pluginIcon.svg</code> into the public repository&#39;s <code>assets/</code>, and the README&#39;s icon link points there — previously the icon link referenced a repo-local path that did not exist in the published copy.</li>
                 </ul>
             </section>
             <h2 class="changelog-version">v0.9.10 — 2026-08-03</h2>
@@ -248,7 +250,7 @@
         </main>
         <footer class="site-footer">
             <p class="feedback-line">Found any issue, or got some ideas? Feed it back at <a class="feedback-link" href="https://github.com/KurvCygnus/Nullify/issues/new">here</a>.</p>
-            <div class="footer-row"><a href="index.html">Back to index</a><span class="footer-meta">Generated 2026-08-16</span></div>
+            <div class="footer-row"><a href="index.html">Back to index</a><span class="footer-meta">Generated 2026-08-17</span></div>
         </footer>
         <script type="module" src="search.js"></script>
     </body>

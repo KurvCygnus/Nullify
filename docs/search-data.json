@@ -540,6 +540,15 @@
     "content": "[!BUG] Opening Settings → Editor → Nullify right after the IDE starts — while the project is still indexing — logged an IndexNotReadyException (\"Please change caller according to com.intellij.openapi.project.IndexNotReadyException documentation\"). The annotation completion was also broken during indexing: the suggestion popup produced error logs and the annotation icons could not be resolved. [!SEARCH] The annotation-candidate search relies on the IDE's class index, which is unavailable while indexing is in progress. The search ran on a background thread without waiting for indexing to finish; the platform throws an exception instead of returning an empty result in that state, and the exception escaped into the IDE log. [!CHECK] Opening Settings while the project is indexing no longer produces any exception. During indexing the annotation fields simply show no suggestions and the stock annotation icon; once indexing finishes, the cache is primed and completion works as usual."
   },
   {
+    "id": "NL-I47",
+    "kind": "issue",
+    "title": "Modal Settings Mode Stacks Two Settings Dialogs When Clicking Welcome-Panel Section Titles",
+    "status": "Open",
+    "url": "issues/NL-I47.html",
+    "statusLabel": "Open",
+    "content": "[!BUG] In the legacy modal Settings mode (when ide.ui.non.modal.settings.window=false), clicking one of the section-title links on the Nullify welcome panel opens a second Settings dialog stacked on top of the first one. The new dialog opens with the selected section already focused, but the original dialog remains visible underneath, requiring the user to close both windows. [!SEARCH] The Nullify welcome panel uses ShowSettingsUtil.showSettingsDialog(project, ConfigurableClass) to navigate from one Configurable to another. In non-modal mode (the default since IntelliJ 2024.1), this call reuses the existing settings window by routing through SettingsVirtualFileHolder and reselecting in-place. In legacy modal mode, the same call always opens a new modal dialog, because the platform's modal code path unconditionally creates a fresh dialog and does not consult any \"is a settings dialog already open\" state. (To be filled when handled.)"
+  },
+  {
     "id": "NL-F1",
     "kind": "feature",
     "title": "Navigation Support",

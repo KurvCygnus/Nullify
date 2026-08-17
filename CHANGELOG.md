@@ -48,6 +48,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Reason-hint pickers are now single controls (NL-F20)**: The reason-hint prefix and the max-inline-length settings each used to be a combo box plus a separate "custom value" field that only became enabled when `Custom...` was selected. Each pair is now one component: choosing `Custom...` turns the box itself into an editable field, so the value is typed in place.
 - **Tracking site redesign**: modern dashboard with a public-facing intro, live search and filters, status icons, natural numeric ordering, dark/light themes, and fixed cross-document links and anchors.
 - **The reason-hint prefix now defaults to Nullify's gutter icon**: Fresh installs draw the `Nullable.svg`/`NotNull.svg` gutter icon before the reason-hint sentence by default instead of no prefix. Existing installs keep their saved choice.
+- **The Marketplace description stays in sync with the README**: The plugin's `<description>`, shown on JetBrains Marketplace and in the IDE's Plugins dialog, is now generated from `README.md` at build time — the store listing always reflects the latest docs instead of a hand-maintained paragraph.
+- **The plugin icon renders on the public README and tracking site**: The tracking-site sync now publishes `pluginIcon.svg` into the public repository's `assets/`, and the README's icon link points there — previously the icon link referenced a repo-local path that did not exist in the published copy.
 
 ## [0.9.10] - 2026-08-03
 
