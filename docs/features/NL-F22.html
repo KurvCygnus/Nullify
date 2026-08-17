@@ -65,12 +65,12 @@
                 </li>
             </ul>
             <p>The selection is the point: a user who wants a reason simply types — the typed text replaces the selected clause, and the preserved period closes the sentence. A user who does not wants to be out in one keystroke: pressing <code>Backspace</code> deletes the whole <code> because </code> clause and leaves a complete sentence, e.g. <code>@param key a String which is nullable.</code>.</p>
-            <p>The sentence is always English by default; other languages require an explicit opt-in in a <strong>project-level</strong> setting (<code>Settings → Editor → Nullify</code>), offering <em>Always English</em> (default) | <em>Follow IDE language</em> | <em>Custom language</em>. Javadoc targets a global developer audience, so following the IDE language by default would add noise rather than value.</p>
+            <p>The sentence is always English by default; other languages require an explicit opt-in in a <strong>project-level</strong> setting (<code>Settings → Editor → Nullify</code>), offering <em>Always English</em> (default) | <em>Follow IDE language</em> | <em>Deutsch</em> | <em>Français</em> | <em>日本語</em> | <em>简体中文</em>. Javadoc targets a global developer audience, so following the IDE language by default would add noise rather than value.</p>
             <h2 id="nl-f22-solution">Solution</h2>
             <p>When a nullability-annotated element&#39;s Javadoc does not document it yet, <code>Alt+Enter</code> offers <strong>Append nullability Javadoc</strong>: it appends (or creates) the Javadoc sentence</p>
             <pre><code>@param key a String which is nullable because &lt;reason&gt;.</code></pre>
             <p>following the kind-adaptive template — <code>@param</code>/<code>@return</code>/<code>@throws</code> for tag-based targets, a prose sentence for fields and classes, with the English article (<code>a</code>/<code>an</code>) chosen from the type&#39;s sound. The reason clause <code> because </code> is inserted <strong>selected</strong> — with the closing period left in place — and the caret right after <code>because </code>: type a reason to replace it in one stroke, or press <code>Backspace</code> to drop the clause entirely and keep a complete sentence (<code>@param key a String which is nullable.</code>).</p>
-            <p>The sentence is English by default; under <code>Settings → Editor → Nullify</code> a project-level option switches it to <em>Follow IDE language</em> or a <em>Custom language</em>.</p>
+            <p>The sentence is English by default; under <code>Settings → Editor → Nullify</code> a project-level option switches it to <em>Follow IDE language</em> or one of the fixed language modes (<em>Deutsch</em>, <em>Français</em>, <em>日本語</em>, <em>简体中文</em>).</p>
             <a class="back-to-top" href="#top">Back to top</a>
         </main>
         <footer class="site-footer">
