@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-08-18
+
+### Added
+
+- **Custom Javadoc sentence templates (NL-F23)**: The doc-language option under `Settings → Editor → Nullify` now offers **Custom...**: write your own sentence template for **Append nullability Javadoc** using `${head}`, `${article}`, `${type_of_target}`, `${nullability_of_target}`, `${select_start}`, `${select_end}` and `${carpet_position}`. `${article}` is optional; the rest are required. `${select_start}`/`${select_end}` delimit the reason clause that is inserted selected (the closing period stays outside it), and `${carpet_position}` marks the caret right after "because ". The field pre-fills with the built-in English template; an invalid template (missing or unknown placeholders, misordered markers) is rejected with an explanation.
+
 ## [1.0.0] - 2026-08-06
 
 ### Added

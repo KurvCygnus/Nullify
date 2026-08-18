@@ -52,7 +52,7 @@
                 </li>
             </ul>
             <p>The shared body is:</p>
-            <pre><code>${head} ${article} ${type_of_target} which is ${nullability_of_target}${select_start} because ${carpet_position}${select_end}.</code></pre>
+            <pre><code>${head} ${article} ${type_of_target} which is ${nullability_of_target}${select_start} because ${caret_position}${select_end}.</code></pre>
             <ul>
                 <li>
                     <p><code>${article}</code> is resolved from the type name&#39;s initial sound (<code>a</code> vs <code>an</code> — <em>an Integer</em>, <em>a String</em>) — never a literal <code>a(an)</code>.</p>
@@ -61,7 +61,7 @@
                     <p><code>${select_start}</code> and <code>${select_end}</code> are auxiliary markers describing the selection bounds, <strong>not</strong> inserted text. After generation, the region between them — the reason clause <code> because </code> — is selected, while the sentence&#39;s closing period stays outside it.</p>
                 </li>
                 <li>
-                    <p><code>${carpet_position}</code> marks where the caret lands, <strong>not</strong> inserted text: the caret sits right after <code>because </code>, at the selection&#39;s end.</p>
+                    <p><code>${caret_position}</code> marks where the caret lands, <strong>not</strong> inserted text: the caret sits right after <code>because </code>, at the selection&#39;s end.</p>
                 </li>
             </ul>
             <p>The selection is the point: a user who wants a reason simply types — the typed text replaces the selected clause, and the preserved period closes the sentence. A user who does not wants to be out in one keystroke: pressing <code>Backspace</code> deletes the whole <code> because </code> clause and leaves a complete sentence, e.g. <code>@param key a String which is nullable.</code>.</p>
@@ -75,7 +75,7 @@
         </main>
         <footer class="site-footer">
             <p class="feedback-line">Found any issue, or got some ideas? Feed it back at <a class="feedback-link" href="https://github.com/KurvCygnus/Nullify/issues/new">here</a>.</p>
-            <div class="footer-row"><a href="../index.html">Back to index</a><span class="footer-meta">Generated 2026-08-17</span></div>
+            <div class="footer-row"><a href="../index.html">Back to index</a><span class="footer-meta">Generated 2026-08-18</span></div>
         </footer>
         <script type="module" src="../search.js"></script>
     </body>

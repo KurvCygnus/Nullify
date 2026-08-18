@@ -20,6 +20,13 @@
         <main id="top">
             <h1>Changelog</h1>
             <p class="changelog-note">All notable changes to Nullify, sourced from the project&#39;s CHANGELOG.md.</p>
+            <h2 class="changelog-version">v1.0.1 — 2026-08-18</h2>
+            <section class="changelog-section">
+                <h3 class="changelog-section-head"><span class="changelog-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></svg></span><span class="changelog-cat-name">Added</span></h3>
+                <ul class="changelog-list">
+                    <li><strong>Custom Javadoc sentence templates (NL-F23)</strong>: The doc-language option under <code>Settings → Editor → Nullify</code> now offers <strong>Custom...</strong>: write your own sentence template for <strong>Append nullability Javadoc</strong> using <code>${head}</code>, <code>${article}</code>, <code>${type_of_target}</code>, <code>${nullability_of_target}</code>, <code>${select_start}</code>, <code>${select_end}</code> and <code>${carpet_position}</code>. <code>${article}</code> is optional; the rest are required. <code>${select_start}</code>/<code>${select_end}</code> delimit the reason clause that is inserted selected (the closing period stays outside it), and <code>${carpet_position}</code> marks the caret right after &quot;because &quot;. The field pre-fills with the built-in English template; an invalid template (missing or unknown placeholders, misordered markers) is rejected with an explanation.</li>
+                </ul>
+            </section>
             <h2 class="changelog-version">v1.0.0 — 2026-08-06</h2>
             <section class="changelog-section">
                 <h3 class="changelog-section-head"><span class="changelog-icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></svg></span><span class="changelog-cat-name">Added</span></h3>
@@ -252,7 +259,7 @@
         </main>
         <footer class="site-footer">
             <p class="feedback-line">Found any issue, or got some ideas? Feed it back at <a class="feedback-link" href="https://github.com/KurvCygnus/Nullify/issues/new">here</a>.</p>
-            <div class="footer-row"><a href="index.html">Back to index</a><span class="footer-meta">Generated 2026-08-17</span></div>
+            <div class="footer-row"><a href="index.html">Back to index</a><span class="footer-meta">Generated 2026-08-18</span></div>
         </footer>
         <script type="module" src="search.js"></script>
     </body>

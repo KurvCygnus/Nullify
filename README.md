@@ -4,6 +4,7 @@
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ%20IDEA-2025.3.4%2B-purple)
+![JetBrains Plugin Downloads](https://img.shields.io/jetbrains/plugin/d/33607)
 
 > Read your Java code the way it was meant to be read.
 > Nullify folds noisy annotations and wildcards into clean `?`/`!`/`out`/`in` syntax — without changing a single line of your source.
@@ -131,10 +132,6 @@ Documenting *why* something can be null is good practice — retyping it into th
 ### 10. Nullability Javadoc, generated
 
 Documenting nullability belongs in the Javadoc — writing the sentence by hand does not. When a nullability-annotated element's Javadoc does not document it yet — a method parameter without its `@param` tag, a return type without `@return`, a thrown type without `@throws`, a type parameter without its `@param <T>` tag, or a field/class without any Javadoc at all — `Alt+Enter` offers **Append nullability Javadoc**: the kind-adaptive sentence (`@param key a String which is nullable`) is appended, or a `/** … */` comment created around it, with the reason clause selected and the caret right after `because `: type a reason to replace it in one stroke, or press Backspace to drop the clause and keep a complete sentence. The sentence is English by default; under `Settings → Editor → Nullify` it can follow the IDE language or one of the fixed *Deutsch* / *Français* / *日本語* / *简体中文* modes.
-
-### 11. See every trick in one place
-
-The repository ships four runnable demo files — `NullifyDemo` (the tour-de-force with its own `main`) plus `VarInference`, `ArrayVararg`, and `WildcardsGenerics` — each showcasing a slice of the folding: nullity markers, preserved non-nullity annotations, annotated `var` inference, arrays & varargs, wildcards, qualified types, and intersection casts. Open them in a dev instance of the plugin to watch every capability at once.
 
 ---
 
