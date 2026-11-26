@@ -1,14 +1,17 @@
+<!-- nullify:marketplace-omit -->
 # Nullify
 
 ![Plugin Icon](https://raw.githubusercontent.com/KurvCygnus/Nullify/main/assets/pluginIcon.svg)
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+![Version](https://img.shields.io/badge/version-1.0.1-blue)
 ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ%20IDEA-2025.3.4%2B-purple)
 ![JetBrains Plugin Downloads](https://img.shields.io/jetbrains/plugin/d/33607)
+<!-- /nullify:marketplace-omit -->
 
 > Read your Java code the way it was meant to be read.
 > Nullify folds noisy annotations and wildcards into clean `?`/`!`/`out`/`in` syntax — without changing a single line of your source.
 
+<!-- nullify:marketplace-omit -->
 ---
 
 ## Table of Contents
@@ -22,6 +25,7 @@
 - [Feedback & Roadmap](#feedback--roadmap)
 
 ---
+<!-- /nullify:marketplace-omit -->
 
 ## See it in action
 

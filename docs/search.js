@@ -6,11 +6,9 @@ function statusKeyword(status) {
     const m = /^([A-Za-z]+)/.exec(status);
     return m ? m[1] : 'Unknown';
 }
-//* Display code without the NL- prefix (`NL-I16.3` -> `I16.3`); URLs keep the
-//* full id.
-function displayId(id) {
-    return id.startsWith('NL-') ? id.slice(3) : id;
-}
+//* 显示不带 NL- 前缀的代码 (`NL-I16.3` -> `I16.3`); URL 保留
+//* 完整的 id.
+function displayId(id) { return id.startsWith('NL-') ? id.slice(3) : id; }
 function numberQuery(query) {
     const m = /^\s*(?:NL[-_])?([IFif]?)\s*(\d+(?:\.\d+)?)\s*$/.exec(query);
     if (!m)
@@ -41,12 +39,8 @@ function matches(entry, query, kindFilter) {
     const haystack = `${entry.id} ${entry.title} ${entry.statusLabel} ${entry.content}`.toLowerCase();
     return tokens.every(token => haystack.includes(token));
 }
-function escapeText(text) {
-    return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
-function escapeRegex(text) {
-    return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
+function escapeText(text) { return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+function escapeRegex(text) { return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 function highlight(text, query) {
     const tokens = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
     let out = escapeText(text);
@@ -54,10 +48,10 @@ function highlight(text, query) {
         out = out.replace(new RegExp(`(${escapeRegex(token)})`, 'gi'), '<mark>$1</mark>');
     return out;
 }
-//* Titles may carry inline code (e.g. `Back to `IrNode``). Escape first, then
-//* swap backtick spans for placeholders, highlight query tokens, and restore
-//* the spans as <code> — highlighting after code-wrapping would let query
-//* tokens match tag names and produce malformed markup.
+//* 标题可能携带内联代码 (例如 `Back to `IrNode``).先转义, 然后
+//* 将反引号片段换成占位符, 高亮查询词, 最后将
+//* 片段还原为 <code> - 在代码包裹之后高亮会让查询
+//* 词匹配到标签名并产生损坏的标记.
 function renderTitle(title, query) {
     const codes = [];
     let out = escapeText(title).replace(/`([^`]+)`/g, (_m, code) => {
@@ -82,7 +76,7 @@ function updateHash(kind) {
     try {
         history.replaceState(null, '', window.location.pathname + window.location.search + target);
     }
-    catch { /* noop */ }
+    catch { /* 无操作 */ }
 }
 function mountSearch() {
     const input = document.getElementById('search-input');
@@ -92,15 +86,15 @@ function mountSearch() {
         return;
     const query = state('');
     const kindFilter = state('all');
-    //* Breadcrumb links on document pages (index.html#issues / #features)
-    //* pre-select a kind filter.
+    //* 文档页面上的面包屑链接 (index.html#issues / #features)
+    //* 会预先选中一个分类过滤器.
     const preset = hashKind();
     if (preset != null)
         kindFilter.val = preset;
     const chips = ['all', 'issue', 'feature'];
     const chipLabels = { all: 'All', issue: 'Issues', feature: 'Features' };
-    //* Chips: a derived state keeps the active chip highlighted; clicking sets
-    //* kindFilter (and syncs the hash), which re-renders everything bound below.
+    //* 筛选器: derived 状态保持当前激活的 chip 高亮; 点击设置
+    //* kindFilter (并同步 hash), 从而重新渲染下面绑定的所有内容.
     const chipBar = tags.div({ class: 'chip-bar' }, ...chips.map(kind => tags.button({
         class: derive(() => `chip${kindFilter.val === kind ? ' chip-active' : ''}`),
         type: 'button',
@@ -124,16 +118,16 @@ function mountSearch() {
             sections.push(tags.section(tags.h4(kind === 'issue' ? 'Issues' : 'Features'), tags.ul(...list.map(e => {
                 const kw = statusKeyword(e.status);
                 return tags.li({ class: 'entry' }, 
-                //* Status vector icon (decorative; the full status text
-                //* lives in the link's hover/focus tooltip below). ICONS
-                //* values are server-generated fixed strings (see
-                //* statusIconsSvgMap), safe to inject.
+                //* 状态矢量图标 (装饰用途; 完整的状态文本
+                //* 位于下方链接的悬停/聚焦提示中).ICONS
+                //* 值是由服务端生成的固定字符串 (参见
+                //* statusIconsSvgMap), 可安全注入.
                 tags.span({ class: `status-icon status-${kw.toLowerCase()}`, 'aria-hidden': 'true', innerHTML: ICONS[kw] ?? '' }), tags.a({ href: e.url, title: e.statusLabel }, displayId(e.id)), tags.span({ class: 'entry-title', innerHTML: renderTitle(e.title, query.val) }));
             }))));
         }
         return tags.div({ class: 'search-results-list' }, ...sections);
     }
-    //* A function child re-runs whenever a state it reads changes (VanJS binding).
+    //* 函数子节点会在其读取的 state 发生变化时重新执行 (VanJS 绑定).
     add(results, () => resultsContent());
     results.hidden = false;
 }
@@ -147,7 +141,7 @@ function mountTheme() {
         try {
             localStorage.setItem('nullify-theme', next);
         }
-        catch { /* noop */ }
+        catch { /* 无操作 */ }
     });
 }
 mountTheme();
