@@ -549,6 +549,15 @@
     "content": "[!BUG] In the legacy modal Settings mode (when ide.ui.non.modal.settings.window=false), clicking one of the section-title links on the Nullify welcome panel opens a second Settings dialog stacked on top of the first one. The new dialog opens with the selected section already focused, but the original dialog remains visible underneath, requiring the user to close both windows. [!SEARCH] The Nullify welcome panel uses ShowSettingsUtil.showSettingsDialog(project, ConfigurableClass) to navigate from one Configurable to another. In non-modal mode (the default since IntelliJ 2024.1), this call reuses the existing settings window by routing through SettingsVirtualFileHolder and reselecting in-place. In legacy modal mode, the same call always opens a new modal dialog, because the platform's modal code path unconditionally creates a fresh dialog and does not consult any \"is a settings dialog already open\" state. (To be filled when handled.)"
   },
   {
+    "id": "NL-I48",
+    "kind": "issue",
+    "title": "Multidimensional Array Annotation Attributed to Wrong Dimension",
+    "status": "Resolved(`1.0.1`)",
+    "url": "issues/NL-I48.html",
+    "statusLabel": "Resolved: on version 1.0.1",
+    "content": "[!BUG] A nullability annotation written on the outer bracket of a multidimensional array is displayed on the inner array instead. For example, int @Nullable [][] was folded as Array<Array?<int>>, where the ? appears on the inner Array. Java places that annotation on the first [], which is the outermost dimension, so the folded text should mark the outer array. Multi-annotation forms with different marks on each bracket were reversed as well. [!SEARCH] IntelliJ's PSI flattens array dimensions into one type element and exposes the first bracket's annotations through that element's annotation list. Nullify mapped the first bracket to the inner array and the last bracket to the outer array, reversing the JLS §9.7.4 attribution for every annotated dimension. [!CHECK] Multidimensional arrays now place annotations on the dimension where Java syntax places them. int @Nullable [][] folds to Array?<Array<int>> and int [] @Nullable [] folds to Array<Array?<int>>; forms with different marks on each bracket are attributed per bracket as well."
+  },
+  {
     "id": "NL-F1",
     "kind": "feature",
     "title": "Navigation Support",
@@ -754,5 +763,23 @@
     "url": "features/NL-F23.html",
     "statusLabel": "Completed: on version 1.0.1",
     "content": "[!LIGHTBULB] The Append nullability Javadoc sentence (NL-F22) is always generated from a built-in template — @param key a String which is nullable because <reason>. — no matter how the language is configured. Teams that want a different wording (a different clause order, an extra phrase, a project-specific phrasing) have no way to express it. NL-F23 lets the user write the sentence template themselves. The doc-language option under Settings → Editor → Nullify (Edit Behavior) gains Custom...: choosing it turns the box into an editable field pre-filled with the built-in English template, and the gray comment below it swaps to an explanation of the placeholder rules. The template is expanded with the same placeholder vocabulary Append nullability Javadoc already uses: Placeholder Meaning Optional? ${head} Tag head (@param key, @return, @throws IOException, or the field/class name) No ${type_of_target} The target's type text (String, Map<String, Integer>) No ${nullability_of_target} nullable / not null, resolved in the IDE language No ${article} a / an, resolved from the type name's initial sound Yes ${select_start} Auxiliary marker: start of the reason-clause selection, not inserted No ${select_end} Auxiliary marker: end of the reason-clause selection, not inserted; the sentence's closing period stays outside it No ${carpet_position} Auxiliary marker: the caret, not inserted; sits right after \"because \" at the selection's end No ${article} is the only optional placeholder. ${select_start}/${select_end} delimit the reason clause that is inserted selected (so typing a reason replaces it in one stroke, and Backspace drops the clause while keeping a complete sentence), and ${carpet_position} marks where the caret lands. A template that is blank, missing a required placeholder, contains an unknown ${...} token, or has misordered/misduplicated markers is rejected at Apply with an explanation; an invalid stored template degrades to the built-in English sentence instead of breaking the intention. The doc-language option under Settings → Editor → Nullify (Edit Behavior) now offers Custom...: write your own sentence template for Append nullability Javadoc using ${head}, ${type_of_target}, ${nullability_of_target}, ${article}, ${select_start}, ${select_end} and ${carpet_position}. ${article} is optional; the rest are required. ${select_start}/${select_end} delimit the reason clause that is inserted selected — with the closing period staying outside it — and ${carpet_position} marks the caret right after \"because \". The field pre-fills with the built-in English template; a template that is blank, missing a required placeholder, contains an unknown placeholder, or has misordered markers is rejected with an explanation, and an invalid saved template falls back to the built-in English sentence."
+  },
+  {
+    "id": "NL-F24",
+    "kind": "feature",
+    "title": "Detect Conflicting Type-Use and Declaration-Site Nullability",
+    "status": "Completed(`1.0.1`)",
+    "url": "features/NL-F24.html",
+    "statusLabel": "Completed: on version 1.0.1",
+    "content": "[!LIGHTBULB] Nullify currently checks duplicated annotations and deviations from configured scope defaults, but it can miss a direct contradiction between a declaration-site annotation and a type-use annotation on the same element. For example, a method parameter whose declaration is @NotNull but whose type is @Nullable carries two opposing promises. Java gives the type-use annotation precedence at runtime, so the declaration-site intent is silently overridden. This feature adds an inspection warning that names the conflict and points at the type-use annotation, leaving source code unchanged until the developer decides which annotation to keep. [!CHECK] When a declaration-site nullability annotation and a type-use annotation disagree on the same element, Nullify highlights the type-use annotation and explains that Java will follow the type-use mark. The warning offers no automatic fix, so the developer chooses the intended annotation."
+  },
+  {
+    "id": "NL-F25",
+    "kind": "feature",
+    "title": "Fold Nullability Annotations on Record Components",
+    "status": "Completed(`1.0.1`)",
+    "url": "features/NL-F25.html",
+    "statusLabel": "Completed: on version 1.0.1",
+    "content": "[!LIGHTBULB] Java records declare their fields as components, and those components can carry the same @NotNull and @Nullable annotations as ordinary fields and parameters. Nullify currently folds annotated fields, parameters, and local variables, but leaves record components untouched. This feature extends folding to record components so a declaration such as record User(@NotNull String name, @Nullable String nickname) gets the same compact ! and ? presentation as other declarations. [!CHECK] Nullability annotations on record components fold to the same compact placeholders used elsewhere. Clicking a folded placeholder still navigates to the component declaration."
   }
 ]
